@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTracker", "TicketTracker\TicketTracker.csproj", "{53A1445A-970A-4276-9FE9-77090982FA6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrackerData", "TicketTrackerData\TicketTrackerData.csproj", "{28020C26-C3A8-4485-B640-6C9E3D609BF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{53A1445A-970A-4276-9FE9-77090982FA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53A1445A-970A-4276-9FE9-77090982FA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53A1445A-970A-4276-9FE9-77090982FA6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28020C26-C3A8-4485-B640-6C9E3D609BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28020C26-C3A8-4485-B640-6C9E3D609BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28020C26-C3A8-4485-B640-6C9E3D609BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28020C26-C3A8-4485-B640-6C9E3D609BF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

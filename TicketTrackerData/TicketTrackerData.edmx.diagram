@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cda45d7443ee474381f6a3067a8998fb" Name="Diagram1">
+        <EntityTypeShape EntityType="TicketTrackerModel.Performance" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicketTrackerModel.Price" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicketTrackerModel.Season" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicketTrackerModel.Show" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicketTrackerModel.ShowPrice" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicketTrackerModel.ShowType" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="TicketTrackerModel.FK_Performance_Show" ManuallyRouted="false" />
+        <AssociationConnector Association="TicketTrackerModel.FK_ShowPrice_Price" ManuallyRouted="false" />
+        <AssociationConnector Association="TicketTrackerModel.FK_Show_Season" ManuallyRouted="false" />
+        <AssociationConnector Association="TicketTrackerModel.FK_Show_ShowType" ManuallyRouted="false" />
+        <AssociationConnector Association="TicketTrackerModel.FK_ShowPrice_Show" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
