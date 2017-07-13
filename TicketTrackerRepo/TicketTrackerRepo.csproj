@@ -51,6 +51,12 @@
     <Compile Include="DTOs\ShowDto.cs" />
     <Compile Include="DTOs\ShowPriceDto.cs" />
     <Compile Include="DTOs\ShowTypeDto.cs" />
+    <Compile Include="Repo\PerformanceRepository.cs" />
+    <Compile Include="Repo\PriceRepository.cs" />
+    <Compile Include="Repo\ShowPriceRepository.cs" />
+    <Compile Include="Repo\ShowRepository.cs" />
+    <Compile Include="Repo\ShowTypeRepository.cs" />
+    <Compile Include="TicketTrackerRepo.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\SeasonRepository.cs" />

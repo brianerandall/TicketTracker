@@ -3,6 +3,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using TicketTrackerRepo.DTOs;
+using TicketTrackerRepo.Repo;
 
 namespace TicketTracker
 {
@@ -37,9 +39,22 @@ namespace TicketTracker
                 switch (tcMain.SelectedIndex)
                 {
                     case 0:
-                        seasonAdapter = new SqlDataAdapter("select * from dbo.Season", con);
-                        seasonAdapter.Fill(dt);
-                        dgvSeason.DataSource = dt;
+                        //seasonAdapter = new SqlDataAdapter("select * from dbo.Season", con);
+                        //seasonAdapter.Fill(dt);
+                        //dgvSeason.DataSource = dt;
+
+                        var repo = new SeasonRepository();
+                        var seasons = repo.GetAllSeasons();
+
+                        lstSeasons.Items.Clear();
+                        foreach (var season in seasons)
+                        {
+                            var item = new ListViewItem(season.Description);
+                            item.SubItems.Add(season.SeasonId.ToString());
+
+                            lstSeasons.Items.Add(item);
+                        }
+
                         break;
                     case 1:
                         showTypeAdapter = new SqlDataAdapter("Select * from dbo.ShowType", con);
@@ -97,10 +112,12 @@ namespace TicketTracker
             this.Close();
         }
 
+
+
         private void dgvSeason_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            seasonId = Convert.ToInt32(dgvSeason.Rows[e.RowIndex].Cells[0].Value.ToString());
-            txtSeasonDescription.Text = dgvSeason.Rows[e.RowIndex].Cells[1].Value.ToString();
+            //seasonId = Convert.ToInt32(dgvSeason.Rows[e.RowIndex].Cells[0].Value.ToString());
+            //txtSeasonDescription.Text = dgvSeason.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void btnUpdateSeason_Click(object sender, EventArgs e)
@@ -193,10 +210,17 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        cmd = new SqlCommand("Insert Into dbo.Season ([Description]) Values (@Description)", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
-                        cmd.ExecuteNonQuery();
+                        //cmd = new SqlCommand("Insert Into dbo.Season ([Description]) Values (@Description)", con);
+                        //con.Open();
+                        //cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
+                        //cmd.ExecuteNonQuery();
+
+                        var seasonDto = new SeasonDto();
+                        seasonDto.Description = txtSeasonDescription.Text;
+
+                        var repo = new SeasonRepository();
+                        repo.AddSeason(seasonDto);
+                        
                         MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
@@ -238,11 +262,19 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        cmd = new SqlCommand("Update dbo.Season Set [Description] = @Description where SeasonId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", seasonId);
-                        cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
-                        cmd.ExecuteNonQuery();
+                        //cmd = new SqlCommand("Update dbo.Season Set [Description] = @Description where SeasonId = @Id", con);
+                        //con.Open();
+                        //cmd.Parameters.AddWithValue("@Id", seasonId);
+                        //cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
+                        //cmd.ExecuteNonQuery();
+
+                        var season = new SeasonDto();
+                        season.SeasonId = seasonId;
+                        season.Description = txtSeasonDescription.Text;
+
+                        var repo = new SeasonRepository();
+                        repo.UpdateSeason(season);
+
                         MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
@@ -431,6 +463,15 @@ namespace TicketTracker
             else
             {
                 MessageBox.Show("You must select a record to delete", "Select A Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lstSeasons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstSeasons.SelectedItems.Count > 0)
+            {
+                seasonId = Convert.ToInt32(lstSeasons.SelectedItems[0].SubItems[1].Text);
+                txtSeasonDescription.Text = lstSeasons.SelectedItems[0].Text;
             }
         }
     }

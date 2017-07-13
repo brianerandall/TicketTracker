@@ -3,15 +3,15 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using TicketTrackerRepo.Repo;
+using TicketTrackerRepo.DTOs;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace TicketTracker
 {
     public partial class frmMain : Form
-    {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TicketTrackerConnectionString"].ConnectionString);
-        SqlDataAdapter seasonAdapter;
-        SqlDataAdapter showAdapter;
-
+    {       
         public frmMain()
         {
             InitializeComponent();
@@ -21,37 +21,23 @@ namespace TicketTracker
         {
             try
             {
-                if (con.State == ConnectionState.Closed)
-                {
-                    con.Open();
-                }
-
-                var dt = new DataTable();
-                seasonAdapter = new SqlDataAdapter("select * from dbo.Season", con);
-                seasonAdapter.Fill(dt);
-                cboSeason.DataSource = dt;
+                var repo = new SeasonRepository();
+                var seasons = repo.GetAllSeasons();
+                
                 cboSeason.DisplayMember = "Description";
                 cboSeason.ValueMember = "SeasonId";
+                cboSeason.DataSource = seasons;
 
-                if (dt.Rows.Count > 0)
+                if (seasons.Count > 0)
                 {
-                    cboSeason.SelectedValue = dt.Rows[0].Field<int>(0);
-                    cboSeason_SelectedIndexChanged(cboSeason, new EventArgs());                    
+                    cboSeason.SelectedValue = seasons[0].SeasonId;
+                    cboSeason_SelectedIndexChanged(cboSeason, new EventArgs());
                 }
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An Error Occurred - " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Helper.LogError(ex);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-                
             }
         }
 
@@ -62,7 +48,7 @@ namespace TicketTracker
         }
 
         private void cboSeason_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {           
             int seasonId;
             if (cboSeason.SelectedValue.GetType() == typeof(DataRowView))
             {
@@ -75,22 +61,15 @@ namespace TicketTracker
             
             try
             {
-                if (con.State == ConnectionState.Closed)
-                {
-                    con.Open();
-                }
+                var repo = new ShowRepository();
+                var shows = repo.GetShowsBySeasonId(seasonId);
 
-                var dt = new DataTable();
-                var cmd = new SqlCommand("Select s.ShowId, st.Name, s.Title from dbo.Show s (NOLOCK) Inner Join dbo.ShowType st (NOLOCK) on s.ShowTypeId = st.ShowTypeId Where s.SeasonId = @SeasonId", con);
-                cmd.Parameters.AddWithValue("@SeasonId", seasonId);
-                showAdapter = new SqlDataAdapter(cmd);
-                showAdapter.Fill(dt);
-
-                foreach (DataRow show in dt.Rows)
+                lstShows.Items.Clear();
+                foreach (var show in shows)
                 {
-                    var item = new ListViewItem(show[2].ToString());
-                    item.SubItems.Add(show[1].ToString());
-                    item.SubItems.Add(show[0].ToString());
+                    var item = new ListViewItem(show.Title);
+                    item.SubItems.Add(show.ShowType.Name);
+                    item.SubItems.Add(show.ShowId.ToString());
 
                     lstShows.Items.Add(item);
                 }
@@ -101,13 +80,6 @@ namespace TicketTracker
             {
                 MessageBox.Show("An Error Occurred - " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Helper.LogError(ex);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
             }
         }
     }

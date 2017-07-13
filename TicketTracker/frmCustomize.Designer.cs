@@ -55,6 +55,9 @@
             this.dgvPrices = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lstSeasons = new System.Windows.Forms.ListView();
+            this.colDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colSeasonId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tcMain.SuspendLayout();
             this.tpSeason.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeason)).BeginInit();
@@ -74,12 +77,13 @@
             this.tcMain.Location = new System.Drawing.Point(6, 12);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(363, 329);
+            this.tcMain.Size = new System.Drawing.Size(363, 512);
             this.tcMain.TabIndex = 0;
             this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
             // 
             // tpSeason
             // 
+            this.tpSeason.Controls.Add(this.lstSeasons);
             this.tpSeason.Controls.Add(this.btnAddSeason);
             this.tpSeason.Controls.Add(this.btnDeleteSeason);
             this.tpSeason.Controls.Add(this.btnUpdateSeason);
@@ -89,7 +93,7 @@
             this.tpSeason.Location = new System.Drawing.Point(4, 22);
             this.tpSeason.Name = "tpSeason";
             this.tpSeason.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSeason.Size = new System.Drawing.Size(355, 303);
+            this.tpSeason.Size = new System.Drawing.Size(355, 486);
             this.tpSeason.TabIndex = 0;
             this.tpSeason.Text = "Seasons";
             this.tpSeason.UseVisualStyleBackColor = true;
@@ -148,7 +152,7 @@
             this.dgvSeason.Location = new System.Drawing.Point(6, 61);
             this.dgvSeason.Name = "dgvSeason";
             this.dgvSeason.ReadOnly = true;
-            this.dgvSeason.Size = new System.Drawing.Size(344, 236);
+            this.dgvSeason.Size = new System.Drawing.Size(344, 137);
             this.dgvSeason.TabIndex = 0;
             this.dgvSeason.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSeason_CellClick);
             // 
@@ -163,7 +167,7 @@
             this.tpShowTypes.Location = new System.Drawing.Point(4, 22);
             this.tpShowTypes.Name = "tpShowTypes";
             this.tpShowTypes.Padding = new System.Windows.Forms.Padding(3);
-            this.tpShowTypes.Size = new System.Drawing.Size(355, 303);
+            this.tpShowTypes.Size = new System.Drawing.Size(355, 486);
             this.tpShowTypes.TabIndex = 1;
             this.tpShowTypes.Text = "Show Types";
             this.tpShowTypes.UseVisualStyleBackColor = true;
@@ -222,7 +226,7 @@
             this.dgvShowType.Location = new System.Drawing.Point(6, 61);
             this.dgvShowType.Name = "dgvShowType";
             this.dgvShowType.ReadOnly = true;
-            this.dgvShowType.Size = new System.Drawing.Size(343, 236);
+            this.dgvShowType.Size = new System.Drawing.Size(343, 136);
             this.dgvShowType.TabIndex = 6;
             this.dgvShowType.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShowType_CellClick);
             // 
@@ -239,7 +243,7 @@
             this.tpPrices.Location = new System.Drawing.Point(4, 22);
             this.tpPrices.Name = "tpPrices";
             this.tpPrices.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPrices.Size = new System.Drawing.Size(355, 303);
+            this.tpPrices.Size = new System.Drawing.Size(355, 486);
             this.tpPrices.TabIndex = 2;
             this.tpPrices.Text = "Prices";
             this.tpPrices.UseVisualStyleBackColor = true;
@@ -316,13 +320,13 @@
             this.dgvPrices.Location = new System.Drawing.Point(6, 61);
             this.dgvPrices.Name = "dgvPrices";
             this.dgvPrices.ReadOnly = true;
-            this.dgvPrices.Size = new System.Drawing.Size(343, 236);
+            this.dgvPrices.Size = new System.Drawing.Size(343, 135);
             this.dgvPrices.TabIndex = 12;
             this.dgvPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrices_CellClick);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(145, 343);
+            this.btnClose.Location = new System.Drawing.Point(145, 545);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
@@ -334,11 +338,36 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // lstSeasons
+            // 
+            this.lstSeasons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colDescription,
+            this.colSeasonId});
+            this.lstSeasons.FullRowSelect = true;
+            this.lstSeasons.Location = new System.Drawing.Point(7, 205);
+            this.lstSeasons.MultiSelect = false;
+            this.lstSeasons.Name = "lstSeasons";
+            this.lstSeasons.Size = new System.Drawing.Size(341, 205);
+            this.lstSeasons.TabIndex = 6;
+            this.lstSeasons.UseCompatibleStateImageBehavior = false;
+            this.lstSeasons.View = System.Windows.Forms.View.Details;
+            this.lstSeasons.SelectedIndexChanged += new System.EventHandler(this.lstSeasons_SelectedIndexChanged);
+            // 
+            // colDescription
+            // 
+            this.colDescription.Text = "Description";
+            this.colDescription.Width = 341;
+            // 
+            // colSeasonId
+            // 
+            this.colSeasonId.Text = "SeasonId";
+            this.colSeasonId.Width = 0;
+            // 
             // frmCustomize
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 372);
+            this.ClientSize = new System.Drawing.Size(375, 577);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tcMain);
             this.Name = "frmCustomize";
@@ -389,5 +418,8 @@
         private System.Windows.Forms.Label lblAmount;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.NumericUpDown udAmount;
+        private System.Windows.Forms.ListView lstSeasons;
+        private System.Windows.Forms.ColumnHeader colDescription;
+        private System.Windows.Forms.ColumnHeader colSeasonId;
     }
 }
