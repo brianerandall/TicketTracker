@@ -13,11 +13,12 @@ namespace TicketTrackerData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TicketTrackerEntities2 : DbContext
+    public partial class TicketTrackerEntities : DbContext
     {
-        public TicketTrackerEntities2()
-            : base("name=TicketTrackerEntities2")
+        public TicketTrackerEntities()
+            : base("name=TicketTrackerEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -298,7 +298,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TicketTrackerEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TicketTrackerEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="Performances" EntityType="Self.Performance" />
           <EntitySet Name="Prices" EntityType="Self.Price" />
           <EntitySet Name="Seasons" EntityType="Self.Season" />
@@ -331,7 +331,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TicketTrackerModelStoreContainer" CdmEntityContainer="TicketTrackerEntities2">
+        <EntityContainerMapping StorageEntityContainer="TicketTrackerModelStoreContainer" CdmEntityContainer="TicketTrackerEntities">
           <EntitySetMapping Name="Performances">
             <EntityTypeMapping TypeName="TicketTrackerModel.Performance">
               <MappingFragment StoreEntitySet="Performance">
