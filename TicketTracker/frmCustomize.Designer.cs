@@ -29,22 +29,31 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomize));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpSeason = new System.Windows.Forms.TabPage();
+            this.lstSeasons = new System.Windows.Forms.ListView();
+            this.colDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colSeasonId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddSeason = new System.Windows.Forms.Button();
             this.btnDeleteSeason = new System.Windows.Forms.Button();
             this.btnUpdateSeason = new System.Windows.Forms.Button();
             this.lblSeasonDescription = new System.Windows.Forms.Label();
             this.txtSeasonDescription = new System.Windows.Forms.TextBox();
-            this.dgvSeason = new System.Windows.Forms.DataGridView();
             this.tpShowTypes = new System.Windows.Forms.TabPage();
+            this.lstShowTypes = new System.Windows.Forms.ListView();
+            this.colShowTypeDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colShowTypeId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddShowType = new System.Windows.Forms.Button();
             this.btnDeleteShowType = new System.Windows.Forms.Button();
             this.btnUpdateShowType = new System.Windows.Forms.Button();
             this.lblShowType = new System.Windows.Forms.Label();
             this.txtShowType = new System.Windows.Forms.TextBox();
-            this.dgvShowType = new System.Windows.Forms.DataGridView();
             this.tpPrices = new System.Windows.Forms.TabPage();
+            this.lstPrices = new System.Windows.Forms.ListView();
+            this.colPriceDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPriceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.udAmount = new System.Windows.Forms.NumericUpDown();
             this.lblAmount = new System.Windows.Forms.Label();
             this.btnAddPrice = new System.Windows.Forms.Button();
@@ -52,20 +61,13 @@
             this.btnUpdatePrice = new System.Windows.Forms.Button();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtPriceDescription = new System.Windows.Forms.TextBox();
-            this.dgvPrices = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lstSeasons = new System.Windows.Forms.ListView();
-            this.colDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colSeasonId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tcMain.SuspendLayout();
             this.tpSeason.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSeason)).BeginInit();
             this.tpShowTypes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvShowType)).BeginInit();
             this.tpPrices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +79,7 @@
             this.tcMain.Location = new System.Drawing.Point(6, 12);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(363, 512);
+            this.tcMain.Size = new System.Drawing.Size(363, 298);
             this.tcMain.TabIndex = 0;
             this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
             // 
@@ -89,14 +91,38 @@
             this.tpSeason.Controls.Add(this.btnUpdateSeason);
             this.tpSeason.Controls.Add(this.lblSeasonDescription);
             this.tpSeason.Controls.Add(this.txtSeasonDescription);
-            this.tpSeason.Controls.Add(this.dgvSeason);
             this.tpSeason.Location = new System.Drawing.Point(4, 22);
             this.tpSeason.Name = "tpSeason";
             this.tpSeason.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSeason.Size = new System.Drawing.Size(355, 486);
+            this.tpSeason.Size = new System.Drawing.Size(355, 272);
             this.tpSeason.TabIndex = 0;
             this.tpSeason.Text = "Seasons";
             this.tpSeason.UseVisualStyleBackColor = true;
+            // 
+            // lstSeasons
+            // 
+            this.lstSeasons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colDescription,
+            this.colSeasonId});
+            this.lstSeasons.FullRowSelect = true;
+            this.lstSeasons.Location = new System.Drawing.Point(6, 60);
+            this.lstSeasons.MultiSelect = false;
+            this.lstSeasons.Name = "lstSeasons";
+            this.lstSeasons.Size = new System.Drawing.Size(342, 205);
+            this.lstSeasons.TabIndex = 6;
+            this.lstSeasons.UseCompatibleStateImageBehavior = false;
+            this.lstSeasons.View = System.Windows.Forms.View.Details;
+            this.lstSeasons.SelectedIndexChanged += new System.EventHandler(this.lstSeasons_SelectedIndexChanged);
+            // 
+            // colDescription
+            // 
+            this.colDescription.Text = "Description";
+            this.colDescription.Width = 341;
+            // 
+            // colSeasonId
+            // 
+            this.colSeasonId.Text = "SeasonId";
+            this.colSeasonId.Width = 0;
             // 
             // btnAddSeason
             // 
@@ -144,26 +170,14 @@
             this.txtSeasonDescription.Size = new System.Drawing.Size(141, 20);
             this.txtSeasonDescription.TabIndex = 1;
             // 
-            // dgvSeason
-            // 
-            this.dgvSeason.AllowUserToAddRows = false;
-            this.dgvSeason.AllowUserToDeleteRows = false;
-            this.dgvSeason.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSeason.Location = new System.Drawing.Point(6, 61);
-            this.dgvSeason.Name = "dgvSeason";
-            this.dgvSeason.ReadOnly = true;
-            this.dgvSeason.Size = new System.Drawing.Size(344, 137);
-            this.dgvSeason.TabIndex = 0;
-            this.dgvSeason.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSeason_CellClick);
-            // 
             // tpShowTypes
             // 
+            this.tpShowTypes.Controls.Add(this.lstShowTypes);
             this.tpShowTypes.Controls.Add(this.btnAddShowType);
             this.tpShowTypes.Controls.Add(this.btnDeleteShowType);
             this.tpShowTypes.Controls.Add(this.btnUpdateShowType);
             this.tpShowTypes.Controls.Add(this.lblShowType);
             this.tpShowTypes.Controls.Add(this.txtShowType);
-            this.tpShowTypes.Controls.Add(this.dgvShowType);
             this.tpShowTypes.Location = new System.Drawing.Point(4, 22);
             this.tpShowTypes.Name = "tpShowTypes";
             this.tpShowTypes.Padding = new System.Windows.Forms.Padding(3);
@@ -171,6 +185,31 @@
             this.tpShowTypes.TabIndex = 1;
             this.tpShowTypes.Text = "Show Types";
             this.tpShowTypes.UseVisualStyleBackColor = true;
+            // 
+            // lstShowTypes
+            // 
+            this.lstShowTypes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colShowTypeDescription,
+            this.colShowTypeId});
+            this.lstShowTypes.FullRowSelect = true;
+            this.lstShowTypes.Location = new System.Drawing.Point(6, 60);
+            this.lstShowTypes.MultiSelect = false;
+            this.lstShowTypes.Name = "lstShowTypes";
+            this.lstShowTypes.Size = new System.Drawing.Size(342, 205);
+            this.lstShowTypes.TabIndex = 12;
+            this.lstShowTypes.UseCompatibleStateImageBehavior = false;
+            this.lstShowTypes.View = System.Windows.Forms.View.Details;
+            this.lstShowTypes.SelectedIndexChanged += new System.EventHandler(this.lstShowTypes_SelectedIndexChanged);
+            // 
+            // colShowTypeDescription
+            // 
+            this.colShowTypeDescription.Text = "Description";
+            this.colShowTypeDescription.Width = 341;
+            // 
+            // colShowTypeId
+            // 
+            this.colShowTypeId.Text = "ShowTypeId";
+            this.colShowTypeId.Width = 0;
             // 
             // btnAddShowType
             // 
@@ -218,20 +257,9 @@
             this.txtShowType.Size = new System.Drawing.Size(141, 20);
             this.txtShowType.TabIndex = 7;
             // 
-            // dgvShowType
-            // 
-            this.dgvShowType.AllowUserToAddRows = false;
-            this.dgvShowType.AllowUserToDeleteRows = false;
-            this.dgvShowType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvShowType.Location = new System.Drawing.Point(6, 61);
-            this.dgvShowType.Name = "dgvShowType";
-            this.dgvShowType.ReadOnly = true;
-            this.dgvShowType.Size = new System.Drawing.Size(343, 136);
-            this.dgvShowType.TabIndex = 6;
-            this.dgvShowType.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShowType_CellClick);
-            // 
             // tpPrices
             // 
+            this.tpPrices.Controls.Add(this.lstPrices);
             this.tpPrices.Controls.Add(this.udAmount);
             this.tpPrices.Controls.Add(this.lblAmount);
             this.tpPrices.Controls.Add(this.btnAddPrice);
@@ -239,7 +267,6 @@
             this.tpPrices.Controls.Add(this.btnUpdatePrice);
             this.tpPrices.Controls.Add(this.lblDescription);
             this.tpPrices.Controls.Add(this.txtPriceDescription);
-            this.tpPrices.Controls.Add(this.dgvPrices);
             this.tpPrices.Location = new System.Drawing.Point(4, 22);
             this.tpPrices.Name = "tpPrices";
             this.tpPrices.Padding = new System.Windows.Forms.Padding(3);
@@ -247,6 +274,37 @@
             this.tpPrices.TabIndex = 2;
             this.tpPrices.Text = "Prices";
             this.tpPrices.UseVisualStyleBackColor = true;
+            // 
+            // lstPrices
+            // 
+            this.lstPrices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colPriceDescription,
+            this.colAmount,
+            this.colPriceId});
+            this.lstPrices.FullRowSelect = true;
+            this.lstPrices.Location = new System.Drawing.Point(6, 60);
+            this.lstPrices.MultiSelect = false;
+            this.lstPrices.Name = "lstPrices";
+            this.lstPrices.Size = new System.Drawing.Size(342, 205);
+            this.lstPrices.TabIndex = 21;
+            this.lstPrices.UseCompatibleStateImageBehavior = false;
+            this.lstPrices.View = System.Windows.Forms.View.Details;
+            this.lstPrices.SelectedIndexChanged += new System.EventHandler(this.lstPrices_SelectedIndexChanged);
+            // 
+            // colPriceDescription
+            // 
+            this.colPriceDescription.Text = "Description";
+            this.colPriceDescription.Width = 200;
+            // 
+            // colAmount
+            // 
+            this.colAmount.Text = "Amount";
+            this.colAmount.Width = 141;
+            // 
+            // colPriceId
+            // 
+            this.colPriceId.Text = "PriceId";
+            this.colPriceId.Width = 0;
             // 
             // udAmount
             // 
@@ -312,21 +370,9 @@
             this.txtPriceDescription.Size = new System.Drawing.Size(141, 20);
             this.txtPriceDescription.TabIndex = 13;
             // 
-            // dgvPrices
-            // 
-            this.dgvPrices.AllowUserToAddRows = false;
-            this.dgvPrices.AllowUserToDeleteRows = false;
-            this.dgvPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPrices.Location = new System.Drawing.Point(6, 61);
-            this.dgvPrices.Name = "dgvPrices";
-            this.dgvPrices.ReadOnly = true;
-            this.dgvPrices.Size = new System.Drawing.Size(343, 135);
-            this.dgvPrices.TabIndex = 12;
-            this.dgvPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrices_CellClick);
-            // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(145, 545);
+            this.btnClose.Location = new System.Drawing.Point(145, 317);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
@@ -338,38 +384,14 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // lstSeasons
-            // 
-            this.lstSeasons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colDescription,
-            this.colSeasonId});
-            this.lstSeasons.FullRowSelect = true;
-            this.lstSeasons.Location = new System.Drawing.Point(7, 205);
-            this.lstSeasons.MultiSelect = false;
-            this.lstSeasons.Name = "lstSeasons";
-            this.lstSeasons.Size = new System.Drawing.Size(341, 205);
-            this.lstSeasons.TabIndex = 6;
-            this.lstSeasons.UseCompatibleStateImageBehavior = false;
-            this.lstSeasons.View = System.Windows.Forms.View.Details;
-            this.lstSeasons.SelectedIndexChanged += new System.EventHandler(this.lstSeasons_SelectedIndexChanged);
-            // 
-            // colDescription
-            // 
-            this.colDescription.Text = "Description";
-            this.colDescription.Width = 341;
-            // 
-            // colSeasonId
-            // 
-            this.colSeasonId.Text = "SeasonId";
-            this.colSeasonId.Width = 0;
-            // 
             // frmCustomize
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 577);
+            this.ClientSize = new System.Drawing.Size(375, 344);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tcMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmCustomize";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Customize Options";
@@ -377,14 +399,11 @@
             this.tcMain.ResumeLayout(false);
             this.tpSeason.ResumeLayout(false);
             this.tpSeason.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSeason)).EndInit();
             this.tpShowTypes.ResumeLayout(false);
             this.tpShowTypes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvShowType)).EndInit();
             this.tpPrices.ResumeLayout(false);
             this.tpPrices.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -394,7 +413,6 @@
 
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpSeason;
-        private System.Windows.Forms.DataGridView dgvSeason;
         private System.Windows.Forms.TabPage tpShowTypes;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblSeasonDescription;
@@ -407,19 +425,24 @@
         private System.Windows.Forms.Button btnUpdateShowType;
         private System.Windows.Forms.Label lblShowType;
         private System.Windows.Forms.TextBox txtShowType;
-        private System.Windows.Forms.DataGridView dgvShowType;
         private System.Windows.Forms.TabPage tpPrices;
         private System.Windows.Forms.Button btnAddPrice;
         private System.Windows.Forms.Button btnDeletePrice;
         private System.Windows.Forms.Button btnUpdatePrice;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox txtPriceDescription;
-        private System.Windows.Forms.DataGridView dgvPrices;
         private System.Windows.Forms.Label lblAmount;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.NumericUpDown udAmount;
         private System.Windows.Forms.ListView lstSeasons;
         private System.Windows.Forms.ColumnHeader colDescription;
         private System.Windows.Forms.ColumnHeader colSeasonId;
+        private System.Windows.Forms.ListView lstShowTypes;
+        private System.Windows.Forms.ColumnHeader colShowTypeDescription;
+        private System.Windows.Forms.ColumnHeader colShowTypeId;
+        private System.Windows.Forms.ListView lstPrices;
+        private System.Windows.Forms.ColumnHeader colPriceDescription;
+        private System.Windows.Forms.ColumnHeader colAmount;
+        private System.Windows.Forms.ColumnHeader colPriceId;
     }
 }

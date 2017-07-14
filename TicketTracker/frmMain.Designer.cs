@@ -52,6 +52,7 @@
             this.colShowTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colShowType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnAddNew = new System.Windows.Forms.Button();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +83,7 @@
             this.helpToolStripMenuItem});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Size = new System.Drawing.Size(554, 24);
+            this.mnuMain.Size = new System.Drawing.Size(413, 24);
             this.mnuMain.TabIndex = 3;
             // 
             // fileToolStripMenuItem1
@@ -176,7 +177,7 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customizeToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // customizeToolStripMenuItem
@@ -216,10 +217,11 @@
             this.lstShows.Location = new System.Drawing.Point(5, 72);
             this.lstShows.MultiSelect = false;
             this.lstShows.Name = "lstShows";
-            this.lstShows.Size = new System.Drawing.Size(404, 97);
+            this.lstShows.Size = new System.Drawing.Size(404, 172);
             this.lstShows.TabIndex = 5;
             this.lstShows.UseCompatibleStateImageBehavior = false;
             this.lstShows.View = System.Windows.Forms.View.Details;
+            this.lstShows.DoubleClick += new System.EventHandler(this.lstShows_DoubleClick);
             // 
             // colShowTitle
             // 
@@ -236,15 +238,26 @@
             this.colShowId.Text = "Show Id";
             this.colShowId.Width = 0;
             // 
+            // btnAddNew
+            // 
+            this.btnAddNew.Location = new System.Drawing.Point(156, 250);
+            this.btnAddNew.Name = "btnAddNew";
+            this.btnAddNew.Size = new System.Drawing.Size(89, 23);
+            this.btnAddNew.TabIndex = 6;
+            this.btnAddNew.Text = "Add New Show";
+            this.btnAddNew.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 558);
+            this.ClientSize = new System.Drawing.Size(413, 283);
+            this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.lstShows);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboSeason);
             this.Controls.Add(this.mnuMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMain;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -282,6 +295,7 @@
         private System.Windows.Forms.ColumnHeader colShowType;
         private System.Windows.Forms.ColumnHeader colShowTitle;
         private System.Windows.Forms.ColumnHeader colShowId;
+        private System.Windows.Forms.Button btnAddNew;
     }
 }
 

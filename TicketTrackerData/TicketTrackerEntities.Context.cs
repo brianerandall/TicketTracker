@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TicketTrackerData
+namespace TicketTrackerEntityModel
 {
     using System;
     using System.Data.Entity;
@@ -32,5 +32,6 @@ namespace TicketTrackerData
         public virtual DbSet<Show> Shows { get; set; }
         public virtual DbSet<ShowPrice> ShowPrices { get; set; }
         public virtual DbSet<ShowType> ShowTypes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

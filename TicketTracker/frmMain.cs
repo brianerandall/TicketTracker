@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using TicketTrackerRepo.Repo;
-using TicketTrackerRepo.DTOs;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace TicketTracker
 {
@@ -24,7 +17,7 @@ namespace TicketTracker
             try
             {
                 var repo = new SeasonRepository();
-                var seasons = repo.GetAllSeasons();
+                var seasons = repo.GetAll();
                 
                 cboSeason.DisplayMember = "Description";
                 cboSeason.ValueMember = "SeasonId";
@@ -64,7 +57,7 @@ namespace TicketTracker
             try
             {
                 var repo = new ShowRepository();
-                var shows = repo.GetShowsBySeasonId(seasonId);
+                var shows = repo.GetList(s => s.SeasonId == seasonId, s => s.ShowType);
 
                 lstShows.Items.Clear();
                 foreach (var show in shows)
@@ -83,6 +76,12 @@ namespace TicketTracker
                 MessageBox.Show("An Error Occurred - " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Helper.LogError(ex);
             }
+        }
+
+        private void lstShows_DoubleClick(object sender, EventArgs e)
+        {
+            var showDetails = new frmShowDetails(Convert.ToInt32(((ListView)sender).FocusedItem.SubItems[2].Text));
+            showDetails.ShowDialog();
         }
     }
 }

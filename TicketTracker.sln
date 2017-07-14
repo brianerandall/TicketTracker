@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTracker", "TicketTracker\TicketTracker.csproj", "{53A1445A-970A-4276-9FE9-77090982FA6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrackerData", "TicketTrackerData\TicketTrackerData.csproj", "{28020C26-C3A8-4485-B640-6C9E3D609BF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrackerEntityModel", "TicketTrackerData\TicketTrackerEntityModel.csproj", "{28020C26-C3A8-4485-B640-6C9E3D609BF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrackerRepo", "TicketTrackerRepo\TicketTrackerRepo.csproj", "{25E1531A-4A2F-409D-A381-262233BCA691}"
 EndProject

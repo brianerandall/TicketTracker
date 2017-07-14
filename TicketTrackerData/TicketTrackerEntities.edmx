@@ -70,6 +70,16 @@
           <Property Name="ShowTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK_Performance_Show">
           <End Role="Show" Type="Self.Show" Multiplicity="1" />
           <End Role="Performance" Type="Self.Performance" Multiplicity="*" />
@@ -137,6 +147,7 @@
           <EntitySet Name="Show" EntityType="Self.Show" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShowPrice" EntityType="Self.ShowPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShowType" EntityType="Self.ShowType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Performance_Show" Association="Self.FK_Performance_Show">
             <End Role="Show" EntitySet="Show" />
             <End Role="Performance" EntitySet="Performance" />
@@ -238,6 +249,16 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Shows" Relationship="Self.FK_Show_ShowType" FromRole="ShowType" ToRole="Show" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <Association Name="FK_Performance_Show">
           <End Role="Show" Type="Self.Show" Multiplicity="1" />
           <End Role="Performance" Type="Self.Performance" Multiplicity="*" />
@@ -305,6 +326,7 @@
           <EntitySet Name="Shows" EntityType="Self.Show" />
           <EntitySet Name="ShowPrices" EntityType="Self.ShowPrice" />
           <EntitySet Name="ShowTypes" EntityType="Self.ShowType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Performance_Show" Association="Self.FK_Performance_Show">
             <End Role="Show" EntitySet="Shows" />
             <End Role="Performance" EntitySet="Performances" />
@@ -400,6 +422,17 @@
               <MappingFragment StoreEntitySet="ShowType">
                 <ScalarProperty Name="ShowTypeId" ColumnName="ShowTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TicketTrackerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

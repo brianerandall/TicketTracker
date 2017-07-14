@@ -37,6 +37,7 @@
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,13 @@
     <Compile Include="DTOs\ShowDto.cs" />
     <Compile Include="DTOs\ShowPriceDto.cs" />
     <Compile Include="DTOs\ShowTypeDto.cs" />
+    <Compile Include="Interfaces\IPerformanceRepository.cs" />
+    <Compile Include="Interfaces\IPriceRepository.cs" />
+    <Compile Include="Interfaces\ISeasonRepository.cs" />
+    <Compile Include="Interfaces\IShowPriceRepository.cs" />
+    <Compile Include="Interfaces\IShowRepository.cs" />
+    <Compile Include="Interfaces\IShowTypeRepository.cs" />
+    <Compile Include="ITicketTrackerRepo.cs" />
     <Compile Include="Repo\PerformanceRepository.cs" />
     <Compile Include="Repo\PriceRepository.cs" />
     <Compile Include="Repo\ShowPriceRepository.cs" />
@@ -62,13 +70,13 @@
     <Compile Include="Repo\SeasonRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicketTrackerData\TicketTrackerData.csproj">
-      <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
-      <Name>TicketTrackerData</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\TicketTrackerData\TicketTrackerEntityModel.csproj">
+      <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
+      <Name>TicketTrackerEntityModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -10,13 +7,13 @@ namespace TicketTracker
 {
     public partial class frmCustomize : Form
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TicketTrackerConnectionString"].ConnectionString);
-        SqlCommand cmd;
-        SqlDataAdapter showTypeAdapter;
-        SqlDataAdapter priceAdapter;
         int seasonId = 0;
         int showTypeId = 0;
         int priceId = 0;
+
+        SeasonRepository seasonRepo = new SeasonRepository();
+        ShowTypeRepository showTypeRepo = new ShowTypeRepository();
+        PriceRepository priceRepo = new PriceRepository(); 
 
         public frmCustomize()
         {
@@ -32,14 +29,10 @@ namespace TicketTracker
         {
             try
             {
-                con.Open();
-                var dt = new DataTable();
-
                 switch (tcMain.SelectedIndex)
                 {
                     case 0:
-                        var repo = new SeasonRepository();
-                        var seasons = repo.GetAllSeasons();
+                        var seasons = seasonRepo.GetAll();
 
                         lstSeasons.Items.Clear();
                         foreach (var season in seasons)
@@ -52,27 +45,40 @@ namespace TicketTracker
 
                         break;
                     case 1:
-                        showTypeAdapter = new SqlDataAdapter("Select * from dbo.ShowType", con);
-                        showTypeAdapter.Fill(dt);
-                        dgvShowType.DataSource = dt;
+                        var showTypes = showTypeRepo.GetAll();
+
+                        lstShowTypes.Items.Clear();
+                        foreach (var showType in showTypes)
+                        {
+                            var item = new ListViewItem(showType.Name);
+                            item.SubItems.Add(showType.ShowTypeId.ToString());
+
+                            lstShowTypes.Items.Add(item);
+                        }
+
                         break;
                     case 2:
-                        priceAdapter = new SqlDataAdapter("Select * from dbo.Price", con);
-                        priceAdapter.Fill(dt);
-                        dgvPrices.DataSource = dt;
+                        var prices = priceRepo.GetAll();
+
+                        lstPrices.Items.Clear();
+                        foreach (var price in prices)
+                        {
+                            var item = new ListViewItem(price.Description);
+                            item.SubItems.Add(price.Amount.Value.ToString());
+                            item.SubItems.Add(price.PriceId.ToString());
+
+                            lstPrices.Items.Add(item);
+                        }
+
                         break;
                     default:
                         break;
-                }                
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An Error Occurred - " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Helper.LogError(ex);               
-            }
-            finally
-            {
-                con.Close();
+                Helper.LogError(ex);
             }
         }
 
@@ -105,14 +111,6 @@ namespace TicketTracker
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-
-
-        private void dgvSeason_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //seasonId = Convert.ToInt32(dgvSeason.Rows[e.RowIndex].Cells[0].Value.ToString());
-            //txtSeasonDescription.Text = dgvSeason.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void btnUpdateSeason_Click(object sender, EventArgs e)
@@ -149,12 +147,6 @@ namespace TicketTracker
             {
                 MessageBox.Show("Please correct all errors", "Errors Exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void dgvShowType_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            showTypeId = Convert.ToInt32(dgvShowType.Rows[e.RowIndex].Cells[0].Value.ToString());
-            txtShowType.Text = dgvShowType.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -208,24 +200,25 @@ namespace TicketTracker
                         var seasonDto = new SeasonDto();
                         seasonDto.Description = txtSeasonDescription.Text;
 
-                        var repo = new SeasonRepository();
-                        repo.AddSeason(seasonDto);
+                        seasonRepo.Add(seasonDto);
                         
                         MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
-                        cmd = new SqlCommand("Insert Into dbo.ShowType ([Name]) Values (@Name)", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Name", txtShowType.Text);
-                        cmd.ExecuteNonQuery();
+                        var showTypeDto = new ShowTypeDto();
+                        showTypeDto.Name = txtShowType.Text;
+
+                        showTypeRepo.Add(showTypeDto);
+
                         MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 2:
-                        cmd = new SqlCommand("Insert Into dbo.Price (Amount, [Description]) Values (@Amount, @Description)", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Amount", udAmount.Value);
-                        cmd.Parameters.AddWithValue("@Description", txtPriceDescription);
-                        cmd.ExecuteNonQuery();
+                        var priceDto = new PriceDto();
+                        priceDto.Amount = udAmount.Value;
+                        priceDto.Description = txtPriceDescription.Text;
+
+                        priceRepo.Add(priceDto);
+
                         MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     default:
@@ -239,7 +232,6 @@ namespace TicketTracker
             }
             finally
             {
-                con.Close();
                 DisplayData();
                 ClearData();
             }
@@ -252,30 +244,31 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        var season = new SeasonDto();
-                        season.SeasonId = seasonId;
-                        season.Description = txtSeasonDescription.Text;
+                        var seasonDto = new SeasonDto();
+                        seasonDto.SeasonId = seasonId;
+                        seasonDto.Description = txtSeasonDescription.Text;
 
-                        var repo = new SeasonRepository();
-                        repo.UpdateSeason(season);
+                        seasonRepo.Update(seasonDto);
 
                         MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
-                        cmd = new SqlCommand("Update dbo.ShowType Set [Name] = @Name where ShowTypeId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", showTypeId);
-                        cmd.Parameters.AddWithValue("@Name", txtShowType.Text);
-                        cmd.ExecuteNonQuery();
+                        var showTypeDto = new ShowTypeDto();
+                        showTypeDto.ShowTypeId = showTypeId;
+                        showTypeDto.Name = txtShowType.Text;
+
+                        showTypeRepo.Update(showTypeDto);
+
                         MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 2:
-                        cmd = new SqlCommand("Update dbo.Price Set [Description] = @Description, Price = @Price where PriceId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", priceId);
-                        cmd.Parameters.AddWithValue("@Description", txtPriceDescription.Text);
-                        cmd.Parameters.AddWithValue("@Price", udAmount.Value);
-                        cmd.ExecuteNonQuery();
+                        var priceDto = new PriceDto();
+                        priceDto.PriceId = priceId;
+                        priceDto.Amount = udAmount.Value;
+                        priceDto.Description = txtPriceDescription.Text;
+
+                        priceRepo.Update(priceDto);
+
                         MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     default:
@@ -289,7 +282,6 @@ namespace TicketTracker
             }
             finally
             {
-                con.Close();
                 DisplayData();
                 ClearData();
             }
@@ -302,27 +294,31 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        var season = new SeasonDto();
-                        season.SeasonId = seasonId;
-                        season.Description = txtSeasonDescription.Text;
+                        var seasonDto = new SeasonDto();
+                        seasonDto.SeasonId = seasonId;
+                        seasonDto.Description = txtSeasonDescription.Text;
 
-                        var repo = new SeasonRepository();
-                        repo.DeleteSeason(season);
+                        seasonRepo.Remove(seasonDto);
 
                         MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
-                        cmd = new SqlCommand("Delete from dbo.ShowType Where ShowTypeId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", showTypeId);
-                        cmd.ExecuteNonQuery();
+                        var showTypeDto = new ShowTypeDto();
+                        showTypeDto.ShowTypeId = showTypeId;
+                        showTypeDto.Name = txtShowType.Name;
+
+                        showTypeRepo.Remove(showTypeDto);
+
                         MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 2:
-                        cmd = new SqlCommand("Delete from dbo.Price Where PriceId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", priceId);
-                        cmd.ExecuteNonQuery();
+                        var priceDto = new PriceDto();
+                        priceDto.PriceId = priceId;
+                        priceDto.Amount = udAmount.Value;
+                        priceDto.Description = txtPriceDescription.Text;
+
+                        priceRepo.Remove(priceDto);
+
                         MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     default:
@@ -336,7 +332,6 @@ namespace TicketTracker
             }
             finally
             {
-                con.Close();
                 DisplayData();
                 ClearData();
             }
@@ -434,13 +429,6 @@ namespace TicketTracker
             return valid;
         }
 
-        private void dgvPrices_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            priceId = Convert.ToInt32(dgvPrices.Rows[e.RowIndex].Cells[0].Value.ToString());
-            udAmount.Value = Convert.ToDecimal(dgvPrices.Rows[e.RowIndex].Cells[1].Value);
-            txtPriceDescription.Text = dgvPrices.Rows[e.RowIndex].Cells[2].Value.ToString();
-        }
-
         private void btnDeletePrice_Click(object sender, EventArgs e)
         {
             if (priceId != 0)
@@ -459,6 +447,25 @@ namespace TicketTracker
             {
                 seasonId = Convert.ToInt32(lstSeasons.SelectedItems[0].SubItems[1].Text);
                 txtSeasonDescription.Text = lstSeasons.SelectedItems[0].Text;
+            }
+        }
+
+        private void lstShowTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstShowTypes.SelectedItems.Count > 0)
+            {
+                showTypeId = Convert.ToInt32(lstShowTypes.SelectedItems[0].SubItems[1].Text);
+                txtShowType.Text = lstShowTypes.SelectedItems[0].Text;
+            }
+        }
+
+        private void lstPrices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstPrices.SelectedItems.Count > 0)
+            {
+                priceId = Convert.ToInt32(lstPrices.SelectedItems[0].SubItems[2].Text);
+                udAmount.Value = Convert.ToDecimal(lstPrices.SelectedItems[0].SubItems[1].Text);
+                txtPriceDescription.Text = lstPrices.SelectedItems[0].SubItems[0].Text;
             }
         }
     }

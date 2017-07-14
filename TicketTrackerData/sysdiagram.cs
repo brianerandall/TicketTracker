@@ -12,14 +12,12 @@ namespace TicketTrackerEntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ShowPrice
+    public partial class sysdiagram
     {
-        public int ShowPriceId { get; set; }
-        public int ShowId { get; set; }
-        public int PriceId { get; set; }
-        public Nullable<int> AmountSold { get; set; }
-    
-        public virtual Price Price { get; set; }
-        public virtual Show Show { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

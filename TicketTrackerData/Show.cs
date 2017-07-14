@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TicketTrackerData
+namespace TicketTrackerEntityModel
 {
     using System;
     using System.Collections.Generic;

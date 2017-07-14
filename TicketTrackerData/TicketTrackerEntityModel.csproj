@@ -7,8 +7,8 @@
     <ProjectGuid>{28020C26-C3A8-4485-B640-6C9E3D609BF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TicketTrackerData</RootNamespace>
-    <AssemblyName>TicketTrackerData</AssemblyName>
+    <RootNamespace>TicketTrackerEntityModel</RootNamespace>
+    <AssemblyName>TicketTrackerEntityModel</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,64 +52,67 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Performance.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Price.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Season.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Show.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ShowPrice.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ShowType.cs">
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketTrackerData.Context.cs">
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketTrackerEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketTrackerData.Context.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketTrackerData.cs">
+    <Compile Include="TicketTrackerEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketTrackerData.tt</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketTrackerData.Designer.cs">
+    <Compile Include="TicketTrackerEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketTrackerData.edmx</DependentUpon>
+      <DependentUpon>TicketTrackerEntities.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="TicketTrackerData.edmx">
+    <EntityDeploy Include="TicketTrackerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TicketTrackerData.Designer.cs</LastGenOutput>
+      <LastGenOutput>TicketTrackerEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TicketTrackerData.edmx.diagram">
-      <DependentUpon>TicketTrackerData.edmx</DependentUpon>
+    <None Include="TicketTrackerEntities.edmx.diagram">
+      <DependentUpon>TicketTrackerEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TicketTrackerData.Context.tt">
+    <Content Include="TicketTrackerEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketTrackerData.edmx</DependentUpon>
-      <LastGenOutput>TicketTrackerData.Context.cs</LastGenOutput>
+      <DependentUpon>TicketTrackerEntities.edmx</DependentUpon>
+      <LastGenOutput>TicketTrackerEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TicketTrackerData.tt">
+    <Content Include="TicketTrackerEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketTrackerData.edmx</DependentUpon>
-      <LastGenOutput>TicketTrackerData.cs</LastGenOutput>
+      <DependentUpon>TicketTrackerEntities.edmx</DependentUpon>
+      <LastGenOutput>TicketTrackerEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

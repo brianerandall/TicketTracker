@@ -74,6 +74,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowDetails.Designer.cs">
+      <DependentUpon>frmShowDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowDetails.resx">
+      <DependentUpon>frmShowDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,10 +119,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketTrackerData\TicketTrackerEntityModel.csproj">
+      <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
+      <Name>TicketTrackerEntityModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketTrackerRepo\TicketTrackerRepo.csproj">
       <Project>{25e1531a-4a2f-409d-a381-262233bca691}</Project>
       <Name>TicketTrackerRepo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\image.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
