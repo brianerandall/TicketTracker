@@ -53,6 +53,8 @@
             this.colShowType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddNew = new System.Windows.Forms.Button();
+            this.colSeason = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnDeleteShow = new System.Windows.Forms.Button();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -212,7 +214,8 @@
             this.lstShows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colShowTitle,
             this.colShowType,
-            this.colShowId});
+            this.colShowId,
+            this.colSeason});
             this.lstShows.FullRowSelect = true;
             this.lstShows.Location = new System.Drawing.Point(5, 72);
             this.lstShows.MultiSelect = false;
@@ -240,18 +243,35 @@
             // 
             // btnAddNew
             // 
-            this.btnAddNew.Location = new System.Drawing.Point(156, 250);
+            this.btnAddNew.Location = new System.Drawing.Point(5, 248);
             this.btnAddNew.Name = "btnAddNew";
             this.btnAddNew.Size = new System.Drawing.Size(89, 23);
             this.btnAddNew.TabIndex = 6;
             this.btnAddNew.Text = "Add New Show";
             this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
+            // 
+            // colSeason
+            // 
+            this.colSeason.Text = "Season";
+            this.colSeason.Width = 0;
+            // 
+            // btnDeleteShow
+            // 
+            this.btnDeleteShow.Location = new System.Drawing.Point(325, 248);
+            this.btnDeleteShow.Name = "btnDeleteShow";
+            this.btnDeleteShow.Size = new System.Drawing.Size(84, 23);
+            this.btnDeleteShow.TabIndex = 7;
+            this.btnDeleteShow.Text = "Delete Show";
+            this.btnDeleteShow.UseVisualStyleBackColor = true;
+            this.btnDeleteShow.Click += new System.EventHandler(this.btnDeleteShow_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 283);
+            this.Controls.Add(this.btnDeleteShow);
             this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.lstShows);
             this.Controls.Add(this.label1);
@@ -296,6 +316,8 @@
         private System.Windows.Forms.ColumnHeader colShowTitle;
         private System.Windows.Forms.ColumnHeader colShowId;
         private System.Windows.Forms.Button btnAddNew;
+        private System.Windows.Forms.ColumnHeader colSeason;
+        private System.Windows.Forms.Button btnDeleteShow;
     }
 }
 
