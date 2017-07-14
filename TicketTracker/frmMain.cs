@@ -7,6 +7,8 @@ using TicketTrackerRepo.Repo;
 using TicketTrackerRepo.DTOs;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace TicketTracker
 {

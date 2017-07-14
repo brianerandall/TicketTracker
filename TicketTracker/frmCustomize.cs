@@ -12,7 +12,6 @@ namespace TicketTracker
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TicketTrackerConnectionString"].ConnectionString);
         SqlCommand cmd;
-        SqlDataAdapter seasonAdapter;
         SqlDataAdapter showTypeAdapter;
         SqlDataAdapter priceAdapter;
         int seasonId = 0;
@@ -39,10 +38,6 @@ namespace TicketTracker
                 switch (tcMain.SelectedIndex)
                 {
                     case 0:
-                        //seasonAdapter = new SqlDataAdapter("select * from dbo.Season", con);
-                        //seasonAdapter.Fill(dt);
-                        //dgvSeason.DataSource = dt;
-
                         var repo = new SeasonRepository();
                         var seasons = repo.GetAllSeasons();
 
@@ -210,11 +205,6 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        //cmd = new SqlCommand("Insert Into dbo.Season ([Description]) Values (@Description)", con);
-                        //con.Open();
-                        //cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
-                        //cmd.ExecuteNonQuery();
-
                         var seasonDto = new SeasonDto();
                         seasonDto.Description = txtSeasonDescription.Text;
 
@@ -262,12 +252,6 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        //cmd = new SqlCommand("Update dbo.Season Set [Description] = @Description where SeasonId = @Id", con);
-                        //con.Open();
-                        //cmd.Parameters.AddWithValue("@Id", seasonId);
-                        //cmd.Parameters.AddWithValue("@Description", txtSeasonDescription.Text);
-                        //cmd.ExecuteNonQuery();
-
                         var season = new SeasonDto();
                         season.SeasonId = seasonId;
                         season.Description = txtSeasonDescription.Text;
@@ -318,10 +302,13 @@ namespace TicketTracker
                 switch (pageIndex)
                 {
                     case 0:
-                        cmd = new SqlCommand("Delete from dbo.Season Where SeasonId = @Id", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@Id", seasonId);
-                        cmd.ExecuteNonQuery();
+                        var season = new SeasonDto();
+                        season.SeasonId = seasonId;
+                        season.Description = txtSeasonDescription.Text;
+
+                        var repo = new SeasonRepository();
+                        repo.DeleteSeason(season);
+
                         MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case 1:
