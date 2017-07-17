@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmShowDetails));
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -43,6 +44,14 @@
             this.lblPerformances = new System.Windows.Forms.Label();
             this.btnAddPrices = new System.Windows.Forms.Button();
             this.btnAddPerformances = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.colPriceName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAmountSold = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPriceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPriceAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colShowPriceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // lblName
@@ -107,12 +116,22 @@
             // 
             // lstTicketPrices
             // 
+            this.lstTicketPrices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colPriceName,
+            this.colPriceAmount,
+            this.colAmountSold,
+            this.colShowId,
+            this.colPriceId,
+            this.colShowPriceId});
             this.lstTicketPrices.FullRowSelect = true;
             this.lstTicketPrices.Location = new System.Drawing.Point(10, 57);
+            this.lstTicketPrices.MultiSelect = false;
             this.lstTicketPrices.Name = "lstTicketPrices";
             this.lstTicketPrices.Size = new System.Drawing.Size(581, 97);
             this.lstTicketPrices.TabIndex = 7;
             this.lstTicketPrices.UseCompatibleStateImageBehavior = false;
+            this.lstTicketPrices.View = System.Windows.Forms.View.Details;
+            this.lstTicketPrices.DoubleClick += new System.EventHandler(this.lstTicketPrices_DoubleClick);
             // 
             // lstPerformances
             // 
@@ -159,6 +178,7 @@
             this.btnAddPrices.TabIndex = 12;
             this.btnAddPrices.Text = "Add Prices";
             this.btnAddPrices.UseVisualStyleBackColor = true;
+            this.btnAddPrices.Click += new System.EventHandler(this.btnAddPrices_Click);
             // 
             // btnAddPerformances
             // 
@@ -168,6 +188,39 @@
             this.btnAddPerformances.TabIndex = 13;
             this.btnAddPerformances.Text = "Add Performance";
             this.btnAddPerformances.UseVisualStyleBackColor = true;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
+            // colPriceName
+            // 
+            this.colPriceName.Text = "Name";
+            this.colPriceName.Width = 250;
+            // 
+            // colAmountSold
+            // 
+            this.colAmountSold.Text = "Amount Sold";
+            this.colAmountSold.Width = 150;
+            // 
+            // colShowId
+            // 
+            this.colShowId.Text = "Show Id";
+            this.colShowId.Width = 0;
+            // 
+            // colPriceId
+            // 
+            this.colPriceId.Width = 0;
+            // 
+            // colPriceAmount
+            // 
+            this.colPriceAmount.Text = "Price Per Ticket";
+            this.colPriceAmount.Width = 150;
+            // 
+            // colShowPriceId
+            // 
+            this.colShowPriceId.Text = "Show Price Id";
+            this.colShowPriceId.Width = 0;
             // 
             // frmShowDetails
             // 
@@ -191,8 +244,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmShowDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmShowDetails";
+            this.Text = "Show Details";
             this.Load += new System.EventHandler(this.frmShowDetails_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,5 +268,12 @@
         private System.Windows.Forms.Label lblPerformances;
         private System.Windows.Forms.Button btnAddPrices;
         private System.Windows.Forms.Button btnAddPerformances;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ColumnHeader colPriceName;
+        private System.Windows.Forms.ColumnHeader colAmountSold;
+        private System.Windows.Forms.ColumnHeader colShowId;
+        private System.Windows.Forms.ColumnHeader colPriceId;
+        private System.Windows.Forms.ColumnHeader colPriceAmount;
+        private System.Windows.Forms.ColumnHeader colShowPriceId;
     }
 }

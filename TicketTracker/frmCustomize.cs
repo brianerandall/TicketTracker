@@ -366,8 +366,8 @@ namespace TicketTracker
             bool valid = false;
             bool priceDescriptionValid = false;
             bool priceValid = false;
-            bool seasonDescription = false;
-            bool showTypeDescription = false;
+            bool seasonDescriptionValid = false;
+            bool showTypeDescriptionValid = false;
 
             switch (tabIndex)
             {
@@ -379,10 +379,10 @@ namespace TicketTracker
                     else
                     {
                         errorProvider.SetError(txtSeasonDescription, string.Empty);
-                        seasonDescription = true;
+                        seasonDescriptionValid = true;
                     }
 
-                    valid = seasonDescription;
+                    valid = seasonDescriptionValid;
 
                     break;
                 case 1:
@@ -393,10 +393,10 @@ namespace TicketTracker
                     else
                     {
                         errorProvider.SetError(txtShowType, string.Empty);
-                        showTypeDescription = true;
+                        showTypeDescriptionValid = true;
                     }
 
-                    valid = showTypeDescription;
+                    valid = showTypeDescriptionValid;
                     break;
                 case 2:
                     if (string.IsNullOrEmpty(txtPriceDescription.Text))

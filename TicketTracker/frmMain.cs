@@ -81,14 +81,21 @@ namespace TicketTracker
 
         private void lstShows_DoubleClick(object sender, EventArgs e)
         {
-            var showDetails = new frmShowDetails(((ListView)sender).FocusedItem, false, this);
+            var showDetails = new frmShowDetails(((ListView)sender).FocusedItem, false);
+            showDetails.SaveButtonClicked += new EventHandler(evtSaveButtonClicked);
             showDetails.ShowDialog();
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            var showDetails = new frmShowDetails(null, true, this);
+            var showDetails = new frmShowDetails(null, true);
+            showDetails.SaveButtonClicked += new EventHandler(evtSaveButtonClicked);
             showDetails.ShowDialog();
+        }
+
+        void evtSaveButtonClicked(object sender, EventArgs e)
+        {
+            cboSeason_SelectedIndexChanged(cboSeason, new EventArgs());
         }
 
         private void btnDeleteShow_Click(object sender, EventArgs e)

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -14,9 +7,10 @@ namespace TicketTracker
 {
     public partial class frmShowDetails : Form
     {
+        public event EventHandler SaveButtonClicked;
+
         private ListViewItem _showInfo;
         private bool _addingNewShow;
-        private frmMain _mainForm;
 
         public frmShowDetails()
         {
@@ -24,16 +18,14 @@ namespace TicketTracker
 
             _showInfo = null;
             _addingNewShow = true;
-            _mainForm = null;
         }
 
-        public frmShowDetails(ListViewItem showInfo, bool addingNewShow, frmMain mainForm)
+        public frmShowDetails(ListViewItem showInfo, bool addingNewShow)
         {
             InitializeComponent();
 
             _showInfo = showInfo;
             _addingNewShow = addingNewShow;
-            _mainForm = mainForm;
         }
 
         private void frmShowDetails_Load(object sender, EventArgs e)
@@ -62,10 +54,57 @@ namespace TicketTracker
                     txtName.Text = _showInfo.SubItems[0].Text;
                 }
 
+                LoadPriceInfo();
+
+                LoadPerformanceInfo();
+
                 lstPerformances.Enabled = !_addingNewShow;
                 lstTicketPrices.Enabled = !_addingNewShow;
                 btnAddPerformances.Enabled = !_addingNewShow;
                 btnAddPrices.Enabled = !_addingNewShow;
+            }
+            catch (Exception ex)
+            {
+                Helper.LogError(ex);
+                throw ex;
+            }
+        }
+
+        private void LoadPriceInfo()
+        {
+            try
+            {
+                var showId = Convert.ToInt32(_showInfo.SubItems[2].Text);
+                var showPriceRepo = new ShowPriceRepository();
+                var prices = showPriceRepo.GetList(sp => sp.ShowId == showId, sp => sp.Price, sp => sp.Show);
+
+                lstTicketPrices.Items.Clear();
+                foreach (var price in prices)
+                {
+                    var item = new ListViewItem(price.Price.Description);
+                    item.SubItems.Add(price.Price.Amount.ToString());
+                    item.SubItems.Add(price.AmountSold.ToString());
+                    item.SubItems.Add(price.ShowId.ToString());
+                    item.SubItems.Add(price.PriceId.ToString());
+                    item.SubItems.Add(price.ShowPriceId.ToString());
+
+                    lstTicketPrices.Items.Add(item);
+                }
+
+                lstTicketPrices.View = View.Details;
+            }
+            catch (Exception ex)
+            {
+                Helper.LogError(ex);
+                throw ex;
+            }
+        }
+
+        private void LoadPerformanceInfo()
+        {
+            try
+            {
+
             }
             catch (Exception ex)
             {
@@ -81,20 +120,43 @@ namespace TicketTracker
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (_addingNewShow)
+            if (ValidateForm())
             {
                 var showRepo = new ShowRepository();
 
+                var showTitle = txtName.Text;
+                var showTypeId = Convert.ToInt32(cboType.SelectedValue);
+                var seasonId = Convert.ToInt32(cboSeason.SelectedValue);
+
                 try
                 {
-                    var showDto = new ShowDto();
-                    showDto.Title = txtName.Text;
-                    showDto.ShowTypeId = Convert.ToInt32(cboType.SelectedValue);
-                    showDto.SeasonId = Convert.ToInt32(cboSeason.SelectedValue);
+                    if (_addingNewShow)
+                    {
+                        var showDto = new ShowDto();
+                        showDto.Title = showTitle;
+                        showDto.ShowTypeId = showTypeId;
+                        showDto.SeasonId = seasonId;
 
-                    showRepo.Add(showDto);
+                        showRepo.Add(showDto);
+                    }
+                    else
+                    {
+                        var showId = Convert.ToInt32(_showInfo.SubItems[2].Text);
 
-                    //_mainForm.
+                        var showDto = showRepo.GetSingle(s => s.ShowId == showId);
+                        showDto.Title = showTitle;
+                        showDto.ShowTypeId = showTypeId;
+                        showDto.SeasonId = seasonId;
+
+                        showRepo.Update(showDto);
+                    }
+
+                    if (SaveButtonClicked != null)
+                    {
+                        SaveButtonClicked(this, e);
+                    }
+
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +165,70 @@ namespace TicketTracker
                 }
             }
             else
-            { }
+            {
+                MessageBox.Show("Please correct all errors", "Errors Exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidateForm()
+        {
+            bool valid = false;
+            bool showNameValid = false;
+            bool showTypeValid = false;
+            bool showSeasonValid = false;
+
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                errorProvider.SetError(txtName, "You must enter a value");
+            }
+            else
+            {
+                errorProvider.SetError(txtName, string.Empty);
+                showNameValid = true;
+            }
+
+            if (cboSeason.SelectedItem == null)
+            {
+                errorProvider.SetError(cboSeason, "You must select a value");
+            }
+            else
+            {
+                errorProvider.SetError(cboSeason, string.Empty);
+                showSeasonValid = true;
+            }
+
+            if (cboType.SelectedItem == null)
+            {
+                errorProvider.SetError(cboType, "You must select a value");
+            }
+            else
+            {
+                errorProvider.SetError(cboType, string.Empty);
+                showTypeValid = true;
+            }
+
+            valid = showNameValid && showTypeValid && showSeasonValid;
+
+            return valid;
+        }
+
+        private void btnAddPrices_Click(object sender, EventArgs e)
+        {
+            var showPrices = new frmShowPrices(null, true);
+            showPrices.SaveButtonClicked += new EventHandler(evtSavePriceButtonClicked);
+            showPrices.ShowDialog();
+        }
+
+        void evtSavePriceButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstTicketPrices_DoubleClick(object sender, EventArgs e)
+        {
+            var showPrices = new frmShowPrices(((ListView)sender).FocusedItem, false);
+            showPrices.SaveButtonClicked += new EventHandler(evtSavePriceButtonClicked);
+            showPrices.ShowDialog();
         }
     }
 }
