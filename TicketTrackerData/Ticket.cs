@@ -18,6 +18,7 @@ namespace TicketTrackerEntityModel
         public int PerformanceId { get; set; }
         public string Description { get; set; }
         public Nullable<int> AmountSold { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
         public virtual Performance Performance { get; set; }
     }

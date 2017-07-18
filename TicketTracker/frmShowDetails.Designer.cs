@@ -42,6 +42,10 @@
             this.lblPerformances = new System.Windows.Forms.Label();
             this.btnAddPerformances = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.colPerformanceDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTotalTickets = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTotalAmountCollected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,12 +111,18 @@
             // 
             // lstPerformances
             // 
+            this.lstPerformances.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colPerformanceDate,
+            this.colTotalTickets,
+            this.colTotalAmountCollected,
+            this.colShowId});
             this.lstPerformances.FullRowSelect = true;
             this.lstPerformances.Location = new System.Drawing.Point(10, 72);
             this.lstPerformances.Name = "lstPerformances";
             this.lstPerformances.Size = new System.Drawing.Size(581, 118);
             this.lstPerformances.TabIndex = 8;
             this.lstPerformances.UseCompatibleStateImageBehavior = false;
+            this.lstPerformances.View = System.Windows.Forms.View.Details;
             // 
             // btnSave
             // 
@@ -141,10 +151,31 @@
             this.btnAddPerformances.TabIndex = 13;
             this.btnAddPerformances.Text = "Add Performance";
             this.btnAddPerformances.UseVisualStyleBackColor = true;
+            this.btnAddPerformances.Click += new System.EventHandler(this.btnAddPerformances_Click);
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            // 
+            // colPerformanceDate
+            // 
+            this.colPerformanceDate.Text = "Date";
+            this.colPerformanceDate.Width = 150;
+            // 
+            // colTotalTickets
+            // 
+            this.colTotalTickets.Text = "Total Tickets Sold";
+            this.colTotalTickets.Width = 150;
+            // 
+            // colTotalAmountCollected
+            // 
+            this.colTotalAmountCollected.Text = "Total Amount Collected";
+            this.colTotalAmountCollected.Width = 150;
+            // 
+            // colShowId
+            // 
+            this.colShowId.Text = "Show Id";
+            this.colShowId.Width = 0;
             // 
             // frmShowDetails
             // 
@@ -187,5 +218,9 @@
         private System.Windows.Forms.Label lblPerformances;
         private System.Windows.Forms.Button btnAddPerformances;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ColumnHeader colPerformanceDate;
+        private System.Windows.Forms.ColumnHeader colTotalTickets;
+        private System.Windows.Forms.ColumnHeader colTotalAmountCollected;
+        private System.Windows.Forms.ColumnHeader colShowId;
     }
 }

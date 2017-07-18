@@ -178,23 +178,16 @@ namespace TicketTracker
             return valid;
         }
 
-        private void btnAddPrices_Click(object sender, EventArgs e)
-        {
-            var showPrices = new frmShowPrices(null, true);
-            showPrices.SaveButtonClicked += new EventHandler(evtSavePriceButtonClicked);
-            showPrices.ShowDialog();
-        }
-
-        void evtSavePriceButtonClicked(object sender, EventArgs e)
+        void evtPerformanceButtonClicked(object sender, EventArgs e)
         {
 
         }
 
-        private void lstTicketPrices_DoubleClick(object sender, EventArgs e)
+        private void btnAddPerformances_Click(object sender, EventArgs e)
         {
-            var showPrices = new frmShowPrices(((ListView)sender).FocusedItem, false);
-            showPrices.SaveButtonClicked += new EventHandler(evtSavePriceButtonClicked);
-            showPrices.ShowDialog();
+            var showDetails = new frmPerformanceDetails(null, true);
+            showDetails.SaveButtonClicked += new EventHandler(evtPerformanceButtonClicked);
+            showDetails.ShowDialog();
         }
     }
 }

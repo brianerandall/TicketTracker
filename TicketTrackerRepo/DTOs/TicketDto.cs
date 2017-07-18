@@ -12,6 +12,7 @@ namespace TicketTrackerRepo.DTOs
         public int PerformanceId { get; set; }
         public string Description { get; set; }
         public int? AmountSold { get; set; }
+        public decimal? Price { get; set; }
 
         public PerformanceDto Performance { get; set; }
     }

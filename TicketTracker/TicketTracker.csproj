@@ -80,11 +80,11 @@
     <Compile Include="frmShowDetails.Designer.cs">
       <DependentUpon>frmShowDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmShowPrices.cs">
+    <Compile Include="frmPerformanceDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmShowPrices.Designer.cs">
-      <DependentUpon>frmShowPrices.cs</DependentUpon>
+    <Compile Include="frmPerformanceDetails.Designer.cs">
+      <DependentUpon>frmPerformanceDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
@@ -98,8 +98,8 @@
     <EmbeddedResource Include="frmShowDetails.resx">
       <DependentUpon>frmShowDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmShowPrices.resx">
-      <DependentUpon>frmShowPrices.cs</DependentUpon>
+    <EmbeddedResource Include="frmPerformanceDetails.resx">
+      <DependentUpon>frmPerformanceDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

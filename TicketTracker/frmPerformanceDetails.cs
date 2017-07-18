@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace TicketTracker
 {
-    public partial class frmShowPrices : Form
+    public partial class frmPerformanceDetails : Form
     {
         public event EventHandler SaveButtonClicked;
 
         private ListViewItem _priceInfo;
         private bool _addingNewPrice;
 
-        public frmShowPrices()
+        public frmPerformanceDetails()
         {
             _priceInfo = null;
             _addingNewPrice = true;
@@ -25,7 +25,7 @@ namespace TicketTracker
             InitializeComponent();
         }
 
-        public frmShowPrices(ListViewItem priceInfo, bool addingNewPrice)
+        public frmPerformanceDetails(ListViewItem priceInfo, bool addingNewPrice)
         {
             _priceInfo = priceInfo;
             _addingNewPrice = addingNewPrice;
@@ -34,6 +34,11 @@ namespace TicketTracker
         }
 
         private void frmShowPrices_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
