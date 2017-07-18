@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace TicketTrackerRepo.DTOs
 {
-    public class PriceDto
+    public class TicketDto
     {
-        public int PriceId { get; set; }
-        public decimal? Amount { get; set; }
+        public int TicketId { get; set; }
+        public int PerformanceId { get; set; }
         public string Description { get; set; }
+        public int? AmountSold { get; set; }
 
-        public List<ShowPriceDto> ShowPrices { get; set; }
+        public PerformanceDto Performance { get; set; }
     }
 }

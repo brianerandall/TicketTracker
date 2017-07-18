@@ -30,5 +30,6 @@ namespace TicketTrackerRepo.DTOs
         public int? SeasonPasses { get; set; }
 
         public ShowDto Show { get; set; }
+        public List<TicketDto> Tickets { get; set; }
     }
 }

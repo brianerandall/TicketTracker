@@ -9,11 +9,9 @@ namespace TicketTracker
     {
         int seasonId = 0;
         int showTypeId = 0;
-        int priceId = 0;
 
         SeasonRepository seasonRepo = new SeasonRepository();
         ShowTypeRepository showTypeRepo = new ShowTypeRepository();
-        PriceRepository priceRepo = new PriceRepository(); 
 
         public frmCustomize()
         {
@@ -57,20 +55,6 @@ namespace TicketTracker
                         }
 
                         break;
-                    case 2:
-                        var prices = priceRepo.GetAll();
-
-                        lstPrices.Items.Clear();
-                        foreach (var price in prices)
-                        {
-                            var item = new ListViewItem(price.Description);
-                            item.SubItems.Add(price.Amount.Value.ToString());
-                            item.SubItems.Add(price.PriceId.ToString());
-
-                            lstPrices.Items.Add(item);
-                        }
-
-                        break;
                     default:
                         break;
                 }
@@ -95,13 +79,6 @@ namespace TicketTracker
                     txtShowType.Text = string.Empty;
                     showTypeId = 0;
                     errorProvider.SetError(txtShowType, string.Empty);
-                    break;
-                case 2:
-                    udAmount.Value = 0M;
-                    txtPriceDescription.Text = string.Empty;
-                    priceId = 0;
-                    errorProvider.SetError(txtPriceDescription, string.Empty);
-                    errorProvider.SetError(udAmount, string.Empty);
                     break;
                 default:
                     break;
@@ -212,15 +189,6 @@ namespace TicketTracker
 
                         MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
-                    case 2:
-                        var priceDto = new PriceDto();
-                        priceDto.Amount = udAmount.Value;
-                        priceDto.Description = txtPriceDescription.Text;
-
-                        priceRepo.Add(priceDto);
-
-                        MessageBox.Show("Record successfully added.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
                     default:
                         break;
                 }
@@ -261,16 +229,6 @@ namespace TicketTracker
 
                         MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
-                    case 2:
-                        var priceDto = new PriceDto();
-                        priceDto.PriceId = priceId;
-                        priceDto.Amount = udAmount.Value;
-                        priceDto.Description = txtPriceDescription.Text;
-
-                        priceRepo.Update(priceDto);
-
-                        MessageBox.Show("Record successfully updated.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
                     default:
                         break;
                 }
@@ -308,16 +266,6 @@ namespace TicketTracker
                         showTypeDto.Name = txtShowType.Name;
 
                         showTypeRepo.Remove(showTypeDto);
-
-                        MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-                    case 2:
-                        var priceDto = new PriceDto();
-                        priceDto.PriceId = priceId;
-                        priceDto.Amount = udAmount.Value;
-                        priceDto.Description = txtPriceDescription.Text;
-
-                        priceRepo.Remove(priceDto);
 
                         MessageBox.Show("Record successfully deleted.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
@@ -364,8 +312,6 @@ namespace TicketTracker
         private bool ValidateForm(int tabIndex)
         {
             bool valid = false;
-            bool priceDescriptionValid = false;
-            bool priceValid = false;
             bool seasonDescriptionValid = false;
             bool showTypeDescriptionValid = false;
 
@@ -398,47 +344,11 @@ namespace TicketTracker
 
                     valid = showTypeDescriptionValid;
                     break;
-                case 2:
-                    if (string.IsNullOrEmpty(txtPriceDescription.Text))
-                    {
-                        errorProvider.SetError(txtPriceDescription, "You must enter a value");
-                    }
-                    else
-                    {
-                        errorProvider.SetError(txtPriceDescription, string.Empty);
-                        priceDescriptionValid = true;
-                    }
-
-                    if (udAmount.Value == 0M)
-                    {
-                        errorProvider.SetError(udAmount, "You must enter a dollar amount");
-                    }
-                    else
-                    {
-                        errorProvider.SetError(udAmount, string.Empty);
-                        priceValid = true;
-                    }
-
-                    valid = priceDescriptionValid && priceValid;
-                    
-                    break;
                 default:
                     break;
             }
 
             return valid;
-        }
-
-        private void btnDeletePrice_Click(object sender, EventArgs e)
-        {
-            if (priceId != 0)
-            {
-                DeleteRecord(tcMain.SelectedIndex);
-            }
-            else
-            {
-                MessageBox.Show("You must select a record to delete", "Select A Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void lstSeasons_SelectedIndexChanged(object sender, EventArgs e)
@@ -456,16 +366,6 @@ namespace TicketTracker
             {
                 showTypeId = Convert.ToInt32(lstShowTypes.SelectedItems[0].SubItems[1].Text);
                 txtShowType.Text = lstShowTypes.SelectedItems[0].Text;
-            }
-        }
-
-        private void lstPrices_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lstPrices.SelectedItems.Count > 0)
-            {
-                priceId = Convert.ToInt32(lstPrices.SelectedItems[0].SubItems[2].Text);
-                udAmount.Value = Convert.ToDecimal(lstPrices.SelectedItems[0].SubItems[1].Text);
-                txtPriceDescription.Text = lstPrices.SelectedItems[0].SubItems[0].Text;
             }
         }
     }

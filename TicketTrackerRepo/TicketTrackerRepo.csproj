@@ -47,23 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\PerformanceDto.cs" />
-    <Compile Include="DTOs\PriceDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\ShowDto.cs" />
-    <Compile Include="DTOs\ShowPriceDto.cs" />
     <Compile Include="DTOs\ShowTypeDto.cs" />
+    <Compile Include="DTOs\TicketDto.cs" />
     <Compile Include="Interfaces\IPerformanceRepository.cs" />
-    <Compile Include="Interfaces\IPriceRepository.cs" />
     <Compile Include="Interfaces\ISeasonRepository.cs" />
-    <Compile Include="Interfaces\IShowPriceRepository.cs" />
     <Compile Include="Interfaces\IShowRepository.cs" />
     <Compile Include="Interfaces\IShowTypeRepository.cs" />
+    <Compile Include="Interfaces\ITicketRepository.cs" />
     <Compile Include="ITicketTrackerRepo.cs" />
     <Compile Include="Repo\PerformanceRepository.cs" />
-    <Compile Include="Repo\PriceRepository.cs" />
-    <Compile Include="Repo\ShowPriceRepository.cs" />
     <Compile Include="Repo\ShowRepository.cs" />
     <Compile Include="Repo\ShowTypeRepository.cs" />
+    <Compile Include="Repo\TicketRepository.cs" />
     <Compile Include="TicketTrackerRepo.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

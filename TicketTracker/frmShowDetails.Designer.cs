@@ -37,20 +37,11 @@
             this.lblSeason = new System.Windows.Forms.Label();
             this.cboSeason = new System.Windows.Forms.ComboBox();
             this.btnClose = new System.Windows.Forms.Button();
-            this.lstTicketPrices = new System.Windows.Forms.ListView();
             this.lstPerformances = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lblPrices = new System.Windows.Forms.Label();
             this.lblPerformances = new System.Windows.Forms.Label();
-            this.btnAddPrices = new System.Windows.Forms.Button();
             this.btnAddPerformances = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.colPriceName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAmountSold = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colPriceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colPriceAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colShowPriceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,7 +97,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(317, 383);
+            this.btnClose.Location = new System.Drawing.Point(317, 247);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 6;
@@ -114,29 +105,10 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // lstTicketPrices
-            // 
-            this.lstTicketPrices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colPriceName,
-            this.colPriceAmount,
-            this.colAmountSold,
-            this.colShowId,
-            this.colPriceId,
-            this.colShowPriceId});
-            this.lstTicketPrices.FullRowSelect = true;
-            this.lstTicketPrices.Location = new System.Drawing.Point(10, 57);
-            this.lstTicketPrices.MultiSelect = false;
-            this.lstTicketPrices.Name = "lstTicketPrices";
-            this.lstTicketPrices.Size = new System.Drawing.Size(581, 97);
-            this.lstTicketPrices.TabIndex = 7;
-            this.lstTicketPrices.UseCompatibleStateImageBehavior = false;
-            this.lstTicketPrices.View = System.Windows.Forms.View.Details;
-            this.lstTicketPrices.DoubleClick += new System.EventHandler(this.lstTicketPrices_DoubleClick);
-            // 
             // lstPerformances
             // 
             this.lstPerformances.FullRowSelect = true;
-            this.lstPerformances.Location = new System.Drawing.Point(10, 208);
+            this.lstPerformances.Location = new System.Drawing.Point(10, 72);
             this.lstPerformances.Name = "lstPerformances";
             this.lstPerformances.Size = new System.Drawing.Size(581, 118);
             this.lstPerformances.TabIndex = 8;
@@ -144,7 +116,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(217, 383);
+            this.btnSave.Location = new System.Drawing.Point(217, 247);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 9;
@@ -152,37 +124,18 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lblPrices
-            // 
-            this.lblPrices.AutoSize = true;
-            this.lblPrices.Location = new System.Drawing.Point(6, 41);
-            this.lblPrices.Name = "lblPrices";
-            this.lblPrices.Size = new System.Drawing.Size(69, 13);
-            this.lblPrices.TabIndex = 10;
-            this.lblPrices.Text = "Ticket Prices";
-            // 
             // lblPerformances
             // 
             this.lblPerformances.AutoSize = true;
-            this.lblPerformances.Location = new System.Drawing.Point(8, 191);
+            this.lblPerformances.Location = new System.Drawing.Point(8, 55);
             this.lblPerformances.Name = "lblPerformances";
             this.lblPerformances.Size = new System.Drawing.Size(98, 13);
             this.lblPerformances.TabIndex = 11;
             this.lblPerformances.Text = "Performance Dates";
             // 
-            // btnAddPrices
-            // 
-            this.btnAddPrices.Location = new System.Drawing.Point(9, 155);
-            this.btnAddPrices.Name = "btnAddPrices";
-            this.btnAddPrices.Size = new System.Drawing.Size(75, 23);
-            this.btnAddPrices.TabIndex = 12;
-            this.btnAddPrices.Text = "Add Prices";
-            this.btnAddPrices.UseVisualStyleBackColor = true;
-            this.btnAddPrices.Click += new System.EventHandler(this.btnAddPrices_Click);
-            // 
             // btnAddPerformances
             // 
-            this.btnAddPerformances.Location = new System.Drawing.Point(9, 327);
+            this.btnAddPerformances.Location = new System.Drawing.Point(9, 191);
             this.btnAddPerformances.Name = "btnAddPerformances";
             this.btnAddPerformances.Size = new System.Drawing.Size(97, 23);
             this.btnAddPerformances.TabIndex = 13;
@@ -193,47 +146,15 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // colPriceName
-            // 
-            this.colPriceName.Text = "Name";
-            this.colPriceName.Width = 250;
-            // 
-            // colAmountSold
-            // 
-            this.colAmountSold.Text = "Amount Sold";
-            this.colAmountSold.Width = 150;
-            // 
-            // colShowId
-            // 
-            this.colShowId.Text = "Show Id";
-            this.colShowId.Width = 0;
-            // 
-            // colPriceId
-            // 
-            this.colPriceId.Width = 0;
-            // 
-            // colPriceAmount
-            // 
-            this.colPriceAmount.Text = "Price Per Ticket";
-            this.colPriceAmount.Width = 150;
-            // 
-            // colShowPriceId
-            // 
-            this.colShowPriceId.Text = "Show Price Id";
-            this.colShowPriceId.Width = 0;
-            // 
             // frmShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 416);
+            this.ClientSize = new System.Drawing.Size(603, 283);
             this.Controls.Add(this.btnAddPerformances);
-            this.Controls.Add(this.btnAddPrices);
             this.Controls.Add(this.lblPerformances);
-            this.Controls.Add(this.lblPrices);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lstPerformances);
-            this.Controls.Add(this.lstTicketPrices);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.cboSeason);
             this.Controls.Add(this.lblSeason);
@@ -261,19 +182,10 @@
         private System.Windows.Forms.Label lblSeason;
         private System.Windows.Forms.ComboBox cboSeason;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.ListView lstTicketPrices;
         private System.Windows.Forms.ListView lstPerformances;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblPrices;
         private System.Windows.Forms.Label lblPerformances;
-        private System.Windows.Forms.Button btnAddPrices;
         private System.Windows.Forms.Button btnAddPerformances;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.ColumnHeader colPriceName;
-        private System.Windows.Forms.ColumnHeader colAmountSold;
-        private System.Windows.Forms.ColumnHeader colShowId;
-        private System.Windows.Forms.ColumnHeader colPriceId;
-        private System.Windows.Forms.ColumnHeader colPriceAmount;
-        private System.Windows.Forms.ColumnHeader colShowPriceId;
     }
 }

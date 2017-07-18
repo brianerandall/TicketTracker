@@ -27,11 +27,10 @@ namespace TicketTrackerEntityModel
         }
     
         public virtual DbSet<Performance> Performances { get; set; }
-        public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Season> Seasons { get; set; }
         public virtual DbSet<Show> Shows { get; set; }
-        public virtual DbSet<ShowPrice> ShowPrices { get; set; }
         public virtual DbSet<ShowType> ShowTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
     }
 }

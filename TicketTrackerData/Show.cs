@@ -18,7 +18,6 @@ namespace TicketTrackerEntityModel
         public Show()
         {
             this.Performances = new HashSet<Performance>();
-            this.ShowPrices = new HashSet<ShowPrice>();
         }
     
         public int ShowId { get; set; }
@@ -30,7 +29,5 @@ namespace TicketTrackerEntityModel
         public virtual ICollection<Performance> Performances { get; set; }
         public virtual Season Season { get; set; }
         public virtual ShowType ShowType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShowPrice> ShowPrices { get; set; }
     }
 }

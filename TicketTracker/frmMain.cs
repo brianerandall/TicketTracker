@@ -114,21 +114,22 @@ namespace TicketTracker
 
                 try
                 {
-                    var showPriceRepo = new ShowPriceRepository();
+                    var ticketRepo = new TicketRepository();
                     var performanceRepo = new PerformanceRepository();
                     var showRepo = new ShowRepository();
 
-                    var show = showRepo.GetSingle(s => s.ShowId == showId);
-                    var showPrices = showPriceRepo.GetList(sp => sp.ShowId == showId);
+                    var show = showRepo.GetSingle(s => s.ShowId == showId);                    
                     var performances = performanceRepo.GetList(p => p.ShowId == showId);
-
-                    foreach (var showPrice in showPrices)
-                    {
-                        showPriceRepo.Remove(showPrice);
-                    }
 
                     foreach (var performance in performances)
                     {
+                        var tickets = ticketRepo.GetList(t => t.PerformanceId == performance.PerformanceId);
+
+                        foreach (var ticket in tickets)
+                        {
+                            ticketRepo.Remove(ticket);
+                        }
+
                         performanceRepo.Remove(performance);
                     }
 

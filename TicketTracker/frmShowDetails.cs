@@ -54,44 +54,10 @@ namespace TicketTracker
                     txtName.Text = _showInfo.SubItems[0].Text;
                 }
 
-                LoadPriceInfo();
-
                 LoadPerformanceInfo();
 
                 lstPerformances.Enabled = !_addingNewShow;
-                lstTicketPrices.Enabled = !_addingNewShow;
                 btnAddPerformances.Enabled = !_addingNewShow;
-                btnAddPrices.Enabled = !_addingNewShow;
-            }
-            catch (Exception ex)
-            {
-                Helper.LogError(ex);
-                throw ex;
-            }
-        }
-
-        private void LoadPriceInfo()
-        {
-            try
-            {
-                var showId = Convert.ToInt32(_showInfo.SubItems[2].Text);
-                var showPriceRepo = new ShowPriceRepository();
-                var prices = showPriceRepo.GetList(sp => sp.ShowId == showId, sp => sp.Price, sp => sp.Show);
-
-                lstTicketPrices.Items.Clear();
-                foreach (var price in prices)
-                {
-                    var item = new ListViewItem(price.Price.Description);
-                    item.SubItems.Add(price.Price.Amount.ToString());
-                    item.SubItems.Add(price.AmountSold.ToString());
-                    item.SubItems.Add(price.ShowId.ToString());
-                    item.SubItems.Add(price.PriceId.ToString());
-                    item.SubItems.Add(price.ShowPriceId.ToString());
-
-                    lstTicketPrices.Items.Add(item);
-                }
-
-                lstTicketPrices.View = View.Details;
             }
             catch (Exception ex)
             {

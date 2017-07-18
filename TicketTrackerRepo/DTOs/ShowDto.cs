@@ -15,7 +15,6 @@ namespace TicketTrackerRepo.DTOs
 
         public List<PerformanceDto> Performances { get; set; }
         public SeasonDto Season { get; set; }
-        public ShowTypeDto ShowType { get; set; }       
-        public List<ShowPriceDto> ShowPrices { get; set; }
+        public ShowTypeDto ShowType { get; set; }
     }
 }
