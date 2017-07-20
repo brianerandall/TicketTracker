@@ -70,7 +70,22 @@ namespace TicketTracker
         {
             try
             {
+                var showId = Convert.ToInt32(_showInfo.SubItems[2].Text.ToString());
 
+                var repo = new PerformanceRepository();
+                var performances = repo.GetList(p => p.ShowId == showId, p => p.Tickets);
+
+                lstPerformances.Items.Clear();
+                foreach (var performance in performances)
+                {
+                    var item = new ListViewItem(performance.Date.ToString());
+                    item.SubItems.Add(performance.Tickets.Count.ToString());
+                    item.SubItems.Add(performance.Tickets.Count.ToString());
+                    item.SubItems.Add(performance.ShowId.ToString());
+                    item.SubItems.Add(performance.PerformanceId.ToString());
+                }
+
+                lstPerformances.View = View.Details;
             }
             catch (Exception ex)
             {
@@ -180,12 +195,12 @@ namespace TicketTracker
 
         void evtPerformanceButtonClicked(object sender, EventArgs e)
         {
-
+            LoadPerformanceInfo();
         }
 
         private void btnAddPerformances_Click(object sender, EventArgs e)
         {
-            var showDetails = new frmPerformanceDetails(null, true);
+            var showDetails = new frmPerformanceDetails(null, true, Convert.ToInt32(_showInfo.SubItems[2].Text.ToString()));
             showDetails.SaveButtonClicked += new EventHandler(evtPerformanceButtonClicked);
             showDetails.ShowDialog();
         }

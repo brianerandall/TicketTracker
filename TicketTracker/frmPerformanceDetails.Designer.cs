@@ -34,9 +34,12 @@
             this.lblTicketPrices = new System.Windows.Forms.Label();
             this.lstTicketPrices = new System.Windows.Forms.ListView();
             this.colTicketDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPricePerTicket = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmountSold = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTicketId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddTicket = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPerformanceDate
@@ -70,12 +73,13 @@
             // 
             this.lstTicketPrices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colTicketDescription,
+            this.colPricePerTicket,
             this.colAmountSold,
             this.colTicketId});
             this.lstTicketPrices.FullRowSelect = true;
             this.lstTicketPrices.Location = new System.Drawing.Point(7, 46);
             this.lstTicketPrices.Name = "lstTicketPrices";
-            this.lstTicketPrices.Size = new System.Drawing.Size(243, 97);
+            this.lstTicketPrices.Size = new System.Drawing.Size(354, 97);
             this.lstTicketPrices.TabIndex = 4;
             this.lstTicketPrices.UseCompatibleStateImageBehavior = false;
             this.lstTicketPrices.View = System.Windows.Forms.View.Details;
@@ -85,10 +89,15 @@
             this.colTicketDescription.Text = "Description";
             this.colTicketDescription.Width = 150;
             // 
+            // colPricePerTicket
+            // 
+            this.colPricePerTicket.Text = "Price Per Ticket";
+            this.colPricePerTicket.Width = 100;
+            // 
             // colAmountSold
             // 
             this.colAmountSold.Text = "Amount Sold";
-            this.colAmountSold.Width = 93;
+            this.colAmountSold.Width = 100;
             // 
             // colTicketId
             // 
@@ -103,13 +112,35 @@
             this.btnAddTicket.TabIndex = 5;
             this.btnAddTicket.Text = "Add Ticket";
             this.btnAddTicket.UseVisualStyleBackColor = true;
-            this.btnAddTicket.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddTicket.Click += new System.EventHandler(this.btnAddTicket_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(128, 227);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 6;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(231, 227);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmPerformanceDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 262);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAddTicket);
             this.Controls.Add(this.lstTicketPrices);
             this.Controls.Add(this.lblTicketPrices);
@@ -135,5 +166,8 @@
         private System.Windows.Forms.ColumnHeader colAmountSold;
         private System.Windows.Forms.ColumnHeader colTicketId;
         private System.Windows.Forms.Button btnAddTicket;
+        private System.Windows.Forms.ColumnHeader colPricePerTicket;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnClose;
     }
 }
