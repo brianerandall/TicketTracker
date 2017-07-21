@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -38,21 +31,65 @@ namespace TicketTracker
             InitializeComponent();
         }
 
+        void evtTicketButtonClicked(object sender, EventArgs e)
+        {
+            LoadTicketInfo();
+        }
+
         private void frmShowPrices_Load(object sender, EventArgs e)
         {
             if (_performanceInfo != null)
             {
                 dtpPerformanceDate.Value = Convert.ToDateTime(_performanceInfo.SubItems[0].Text);
             }
+
+            LoadTicketInfo();
+        }
+
+        private void LoadTicketInfo()
+        {
+            try
+            {
+                var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
+
+                var repo = new TicketRepository();
+                var tickets = repo.GetList(t => t.PerformanceId == performanceId);
+
+                lstTicketPrices.Items.Clear();
+                foreach (var ticket in tickets)
+                {
+                    var item = new ListViewItem(ticket.Description);
+                    item.SubItems.Add(ticket.Price.ToString());
+                    item.SubItems.Add(ticket.AmountSold.ToString());
+                    item.SubItems.Add(ticket.TicketId.ToString());
+
+                    lstTicketPrices.Items.Add(item);
+                }
+
+                lstTicketPrices.View = View.Details;
+
+            }
+            catch (Exception ex)
+            {
+                Helper.LogError(ex);
+                throw ex;
+            }         
         }
 
         private void btnAddTicket_Click(object sender, EventArgs e)
         {
-
+            var ticketDetails = new frmTicketDetails(null, true, Convert.ToInt32(_performanceInfo.SubItems[4].Text));
+            ticketDetails.SaveButtonClicked += new EventHandler(evtTicketButtonClicked);
+            ticketDetails.ShowDialog();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (SaveButtonClicked != null)
+            {
+                SaveButtonClicked(this, e);
+            }
+
             this.Close();
         }
 
@@ -123,6 +160,8 @@ namespace TicketTracker
                     {
                         SaveButtonClicked(this, e);
                     }
+
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -138,7 +177,60 @@ namespace TicketTracker
 
         private bool ValidateForm()
         {
-            return true;
+            bool valid = false;
+            bool performanceDateValid = false;
+
+            if (string.IsNullOrEmpty(dtpPerformanceDate.Text) || dtpPerformanceDate.Value == null)
+            {
+                errorProvider.SetError(dtpPerformanceDate, "You must enter a value");
+            }
+            else
+            {
+                errorProvider.SetError(dtpPerformanceDate, string.Empty);
+                performanceDateValid = true;
+            }
+
+            valid = performanceDateValid;
+
+            return valid;
+        }
+
+        private void lstTicketPrices_DoubleClick(object sender, EventArgs e)
+        {
+            var ticketDetails = new frmTicketDetails(((ListView)sender).FocusedItem, false, Convert.ToInt32(_performanceInfo.SubItems[4].Text));
+            ticketDetails.SaveButtonClicked += new EventHandler(evtTicketButtonClicked);
+            ticketDetails.ShowDialog();
+        }
+
+        private void btnDeleteTicket_Click(object sender, EventArgs e)
+        {
+            if (lstTicketPrices.FocusedItem == null)
+            {
+                MessageBox.Show("You must choose a Ticket to Delete", "No Ticket Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var result = MessageBox.Show("You are about to delete this ticket.  If you do, all details will be removed." + Environment.NewLine + Environment.NewLine + "Are you sure you still want to continue?", "Really Delete Ticket?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                var ticketId = Convert.ToInt32(lstTicketPrices.FocusedItem.SubItems[3].Text);
+
+                try
+                {
+                    var ticketRepository = new TicketRepository();
+                    var ticket = ticketRepository.GetSingle(t => t.TicketId == ticketId);
+
+                    ticketRepository.Remove(ticket);
+
+                    LoadTicketInfo();
+                }
+                catch (Exception ex)
+                {
+                    Helper.LogError(ex);
+                    throw;
+                }
+            }
         }
     }
 }

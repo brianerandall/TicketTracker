@@ -81,6 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecimalBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="frmCustomize.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +108,12 @@
     <Compile Include="frmPerformanceDetails.Designer.cs">
       <DependentUpon>frmPerformanceDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTicketDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTicketDetails.Designer.cs">
+      <DependentUpon>frmTicketDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPerformanceDetails.resx">
       <DependentUpon>frmPerformanceDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTicketDetails.resx">
+      <DependentUpon>frmTicketDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,12 +171,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\TicketTracker.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Data\TicketTracker.mdf" />
     <Content Include="Data\TicketTracker_log.ldf">
       <DependentUpon>TicketTracker.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\image.ico" />
   </ItemGroup>

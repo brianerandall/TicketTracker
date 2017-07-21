@@ -78,11 +78,13 @@ namespace TicketTracker
                 lstPerformances.Items.Clear();
                 foreach (var performance in performances)
                 {
-                    var item = new ListViewItem(performance.Date.ToString());
-                    item.SubItems.Add(performance.Tickets.Count.ToString());
-                    item.SubItems.Add(performance.Tickets.Count.ToString());
+                    var item = new ListViewItem(performance.Date.ToString());                    
+                    item.SubItems.Add(repo.GetTicketsSoldForPerformance(performance.PerformanceId).ToString());
+                    item.SubItems.Add(repo.GetAmountCollectedForPerformance(performance.PerformanceId).ToString());
                     item.SubItems.Add(performance.ShowId.ToString());
                     item.SubItems.Add(performance.PerformanceId.ToString());
+
+                    lstPerformances.Items.Add(item);
                 }
 
                 lstPerformances.View = View.Details;
@@ -96,6 +98,11 @@ namespace TicketTracker
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (SaveButtonClicked != null)
+            {
+                SaveButtonClicked(this, e);
+            }
+
             this.Close();
         }
 
@@ -203,6 +210,42 @@ namespace TicketTracker
             var showDetails = new frmPerformanceDetails(null, true, Convert.ToInt32(_showInfo.SubItems[2].Text.ToString()));
             showDetails.SaveButtonClicked += new EventHandler(evtPerformanceButtonClicked);
             showDetails.ShowDialog();
+        }
+
+        private void lstPerformances_DoubleClick(object sender, EventArgs e)
+        {
+            var showDetails = new frmPerformanceDetails(((ListView)sender).FocusedItem, false, Convert.ToInt32(_showInfo.SubItems[2].Text.ToString()));
+            showDetails.SaveButtonClicked += new EventHandler(evtPerformanceButtonClicked);
+            showDetails.ShowDialog();
+        }
+
+        private void btnDeletePerformance_Click(object sender, EventArgs e)
+        {
+            if (lstPerformances.FocusedItem == null)
+            {
+                MessageBox.Show("You must choose a Performance to Delete", "No Performance Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var result = MessageBox.Show("You are about to delete this performance.  If you do, all details will be removed." + Environment.NewLine + Environment.NewLine + "Are you sure you still want to continue?", "Really Delete Performance?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                var performanceId = Convert.ToInt32(lstPerformances.FocusedItem.SubItems[4].Text);
+
+                try
+                {
+                    var performanceRepository = new PerformanceRepository();
+                    performanceRepository.DeletePerformance(performanceId);
+
+                    LoadPerformanceInfo();
+                }
+                catch (Exception ex)
+                {
+                    Helper.LogError(ex);
+                    throw;
+                }
+            }
         }
     }
 }

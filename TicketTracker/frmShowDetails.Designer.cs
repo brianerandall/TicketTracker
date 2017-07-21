@@ -42,11 +42,12 @@
             this.colTotalTickets = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTotalAmountCollected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPerformanceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
             this.lblPerformances = new System.Windows.Forms.Label();
             this.btnAddPerformances = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.colPerformanceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnDeletePerformance = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,10 +122,11 @@
             this.lstPerformances.FullRowSelect = true;
             this.lstPerformances.Location = new System.Drawing.Point(10, 72);
             this.lstPerformances.Name = "lstPerformances";
-            this.lstPerformances.Size = new System.Drawing.Size(581, 118);
+            this.lstPerformances.Size = new System.Drawing.Size(454, 118);
             this.lstPerformances.TabIndex = 8;
             this.lstPerformances.UseCompatibleStateImageBehavior = false;
             this.lstPerformances.View = System.Windows.Forms.View.Details;
+            this.lstPerformances.DoubleClick += new System.EventHandler(this.lstPerformances_DoubleClick);
             // 
             // colPerformanceDate
             // 
@@ -145,6 +147,11 @@
             // 
             this.colShowId.Text = "Show Id";
             this.colShowId.Width = 0;
+            // 
+            // colPerformanceId
+            // 
+            this.colPerformanceId.Text = "Performance Id";
+            this.colPerformanceId.Width = 0;
             // 
             // btnSave
             // 
@@ -179,16 +186,22 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // colPerformanceId
+            // btnDeletePerformance
             // 
-            this.colPerformanceId.Text = "Performance Id";
-            this.colPerformanceId.Width = 0;
+            this.btnDeletePerformance.Location = new System.Drawing.Point(112, 191);
+            this.btnDeletePerformance.Name = "btnDeletePerformance";
+            this.btnDeletePerformance.Size = new System.Drawing.Size(113, 23);
+            this.btnDeletePerformance.TabIndex = 14;
+            this.btnDeletePerformance.Text = "Delete Performance";
+            this.btnDeletePerformance.UseVisualStyleBackColor = true;
+            this.btnDeletePerformance.Click += new System.EventHandler(this.btnDeletePerformance_Click);
             // 
             // frmShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 283);
+            this.ClientSize = new System.Drawing.Size(593, 283);
+            this.Controls.Add(this.btnDeletePerformance);
             this.Controls.Add(this.btnAddPerformances);
             this.Controls.Add(this.lblPerformances);
             this.Controls.Add(this.btnSave);
@@ -230,5 +243,6 @@
         private System.Windows.Forms.ColumnHeader colTotalAmountCollected;
         private System.Windows.Forms.ColumnHeader colShowId;
         private System.Windows.Forms.ColumnHeader colPerformanceId;
+        private System.Windows.Forms.Button btnDeletePerformance;
     }
 }

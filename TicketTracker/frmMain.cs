@@ -66,6 +66,8 @@ namespace TicketTracker
                     item.SubItems.Add(show.ShowType.Name);
                     item.SubItems.Add(show.ShowId.ToString());
                     item.SubItems.Add(show.Season.Description);
+                    item.SubItems.Add(repo.GetTicketsSoldForShow(show.ShowId).ToString());
+                    item.SubItems.Add(repo.GetAmountCollectedForShow(show.ShowId).ToString());
 
                     lstShows.Items.Add(item);
                 }
@@ -114,26 +116,8 @@ namespace TicketTracker
 
                 try
                 {
-                    var ticketRepo = new TicketRepository();
-                    var performanceRepo = new PerformanceRepository();
-                    var showRepo = new ShowRepository();
-
-                    var show = showRepo.GetSingle(s => s.ShowId == showId);                    
-                    var performances = performanceRepo.GetList(p => p.ShowId == showId);
-
-                    foreach (var performance in performances)
-                    {
-                        var tickets = ticketRepo.GetList(t => t.PerformanceId == performance.PerformanceId);
-
-                        foreach (var ticket in tickets)
-                        {
-                            ticketRepo.Remove(ticket);
-                        }
-
-                        performanceRepo.Remove(performance);
-                    }
-
-                    showRepo.Remove(show);
+                    var showRepository = new ShowRepository();
+                    showRepository.DeleteShow(showId);
 
                     cboSeason_SelectedIndexChanged(cboSeason, new EventArgs());
                 }
@@ -143,6 +127,11 @@ namespace TicketTracker
                     throw;
                 }
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

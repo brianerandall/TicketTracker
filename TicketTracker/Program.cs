@@ -19,11 +19,6 @@ namespace TicketTracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var dataDirectory = @"..\Data\TicketTracker.mdf" + Application.StartupPath;
-            var absolutePath = Path.GetFullPath(dataDirectory);
-
-            AppDomain.CurrentDomain.SetData("DataDirectory", absolutePath);
             Application.Run(new frmMain());
         }       
     }
