@@ -52,10 +52,10 @@ namespace TicketTracker
                     cboSeason.SelectedIndex = cboSeason.FindStringExact(_showInfo.SubItems[3].Text);
 
                     txtName.Text = _showInfo.SubItems[0].Text;
+
+                    LoadPerformanceInfo();
                 }
-
-                LoadPerformanceInfo();
-
+               
                 lstPerformances.Enabled = !_addingNewShow;
                 btnAddPerformances.Enabled = !_addingNewShow;
             }

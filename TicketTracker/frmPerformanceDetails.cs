@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -36,14 +37,27 @@ namespace TicketTracker
             LoadTicketInfo();
         }
 
+        void evtTextboxValidating(object sender, CancelEventArgs e)
+        {
+            TextBox tx = sender as TextBox;
+            decimal test;
+            if (!Decimal.TryParse(tx.Text, out test))
+            {
+                MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
+            }
+            else //this is the formatting line
+                tx.Text = test.ToString("0.00");
+        }
+
         private void frmShowPrices_Load(object sender, EventArgs e)
         {
             if (_performanceInfo != null)
             {
                 dtpPerformanceDate.Value = Convert.ToDateTime(_performanceInfo.SubItems[0].Text);
-            }
 
-            LoadTicketInfo();
+                LoadTicketInfo();
+            }            
         }
 
         private void LoadTicketInfo()
@@ -130,7 +144,7 @@ namespace TicketTracker
                     }
                     else
                     {
-                        var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].ToString());
+                        var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text.ToString());
 
                         var performanceDto = performanceRepo.GetSingle(p => p.PerformanceId == performanceId);
                         performanceDto.ShowId = _showId;
@@ -231,6 +245,11 @@ namespace TicketTracker
                     throw;
                 }
             }
+        }
+
+        private void txtSeedMoney_Validating(object sender, CancelEventArgs e)
+        {
+            evtTextboxValidating(sender, e);
         }
     }
 }

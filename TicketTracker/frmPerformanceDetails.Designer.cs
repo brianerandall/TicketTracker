@@ -46,6 +46,14 @@
             this.lblSeedMoney = new System.Windows.Forms.Label();
             this.txtSeedMoney = new System.Windows.Forms.TextBox();
             this.gbAmounts = new System.Windows.Forms.GroupBox();
+            this.txtGrandTotal = new System.Windows.Forms.TextBox();
+            this.lblGrandTotal = new System.Windows.Forms.Label();
+            this.txtTotalCreditCards = new System.Windows.Forms.TextBox();
+            this.lblTotalCreditCards = new System.Windows.Forms.Label();
+            this.txtTotalChecks = new System.Windows.Forms.TextBox();
+            this.lblTotalChecks = new System.Windows.Forms.Label();
+            this.txtCashTotal = new System.Windows.Forms.TextBox();
+            this.lblCashTotal = new System.Windows.Forms.Label();
             this.txtHundredsCollected = new System.Windows.Forms.TextBox();
             this.lblHundredsCollected = new System.Windows.Forms.Label();
             this.txtFiftiesCollected = new System.Windows.Forms.TextBox();
@@ -60,14 +68,6 @@
             this.lblOnesCollected = new System.Windows.Forms.Label();
             this.txtChangeCollected = new System.Windows.Forms.TextBox();
             this.lblChangeCollected = new System.Windows.Forms.Label();
-            this.txtCashTotal = new System.Windows.Forms.TextBox();
-            this.lblCashTotal = new System.Windows.Forms.Label();
-            this.txtTotalChecks = new System.Windows.Forms.TextBox();
-            this.lblTotalChecks = new System.Windows.Forms.Label();
-            this.txtTotalCreditCards = new System.Windows.Forms.TextBox();
-            this.lblTotalCreditCards = new System.Windows.Forms.Label();
-            this.txtGrandTotal = new System.Windows.Forms.TextBox();
-            this.lblGrandTotal = new System.Windows.Forms.Label();
             this.gbMisc = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblSquareFees = new System.Windows.Forms.Label();
@@ -210,6 +210,7 @@
             this.txtSeedMoney.Name = "txtSeedMoney";
             this.txtSeedMoney.Size = new System.Drawing.Size(100, 20);
             this.txtSeedMoney.TabIndex = 10;
+            this.txtSeedMoney.Validating += new System.ComponentModel.CancelEventHandler(this.txtSeedMoney_Validating);
             // 
             // gbAmounts
             // 
@@ -241,6 +242,72 @@
             this.gbAmounts.TabIndex = 11;
             this.gbAmounts.TabStop = false;
             this.gbAmounts.Text = "Cash/Check/Credit Cards";
+            // 
+            // txtGrandTotal
+            // 
+            this.txtGrandTotal.Location = new System.Drawing.Point(245, 80);
+            this.txtGrandTotal.Name = "txtGrandTotal";
+            this.txtGrandTotal.ReadOnly = true;
+            this.txtGrandTotal.Size = new System.Drawing.Size(75, 20);
+            this.txtGrandTotal.TabIndex = 21;
+            // 
+            // lblGrandTotal
+            // 
+            this.lblGrandTotal.AutoSize = true;
+            this.lblGrandTotal.Location = new System.Drawing.Point(153, 83);
+            this.lblGrandTotal.Name = "lblGrandTotal";
+            this.lblGrandTotal.Size = new System.Drawing.Size(66, 13);
+            this.lblGrandTotal.TabIndex = 20;
+            this.lblGrandTotal.Text = "Grand Total:";
+            // 
+            // txtTotalCreditCards
+            // 
+            this.txtTotalCreditCards.Location = new System.Drawing.Point(245, 59);
+            this.txtTotalCreditCards.Name = "txtTotalCreditCards";
+            this.txtTotalCreditCards.Size = new System.Drawing.Size(75, 20);
+            this.txtTotalCreditCards.TabIndex = 19;
+            // 
+            // lblTotalCreditCards
+            // 
+            this.lblTotalCreditCards.AutoSize = true;
+            this.lblTotalCreditCards.Location = new System.Drawing.Point(152, 62);
+            this.lblTotalCreditCards.Name = "lblTotalCreditCards";
+            this.lblTotalCreditCards.Size = new System.Drawing.Size(94, 13);
+            this.lblTotalCreditCards.TabIndex = 18;
+            this.lblTotalCreditCards.Text = "Total Credit Cards:";
+            // 
+            // txtTotalChecks
+            // 
+            this.txtTotalChecks.Location = new System.Drawing.Point(245, 38);
+            this.txtTotalChecks.Name = "txtTotalChecks";
+            this.txtTotalChecks.Size = new System.Drawing.Size(75, 20);
+            this.txtTotalChecks.TabIndex = 17;
+            // 
+            // lblTotalChecks
+            // 
+            this.lblTotalChecks.AutoSize = true;
+            this.lblTotalChecks.Location = new System.Drawing.Point(152, 41);
+            this.lblTotalChecks.Name = "lblTotalChecks";
+            this.lblTotalChecks.Size = new System.Drawing.Size(73, 13);
+            this.lblTotalChecks.TabIndex = 16;
+            this.lblTotalChecks.Text = "Total Checks:";
+            // 
+            // txtCashTotal
+            // 
+            this.txtCashTotal.Location = new System.Drawing.Point(245, 17);
+            this.txtCashTotal.Name = "txtCashTotal";
+            this.txtCashTotal.ReadOnly = true;
+            this.txtCashTotal.Size = new System.Drawing.Size(75, 20);
+            this.txtCashTotal.TabIndex = 15;
+            // 
+            // lblCashTotal
+            // 
+            this.lblCashTotal.AutoSize = true;
+            this.lblCashTotal.Location = new System.Drawing.Point(152, 20);
+            this.lblCashTotal.Name = "lblCashTotal";
+            this.lblCashTotal.Size = new System.Drawing.Size(61, 13);
+            this.lblCashTotal.TabIndex = 14;
+            this.lblCashTotal.Text = "Total Cash:";
             // 
             // txtHundredsCollected
             // 
@@ -353,72 +420,6 @@
             this.lblChangeCollected.Size = new System.Drawing.Size(47, 13);
             this.lblChangeCollected.TabIndex = 0;
             this.lblChangeCollected.Text = "Change:";
-            // 
-            // txtCashTotal
-            // 
-            this.txtCashTotal.Location = new System.Drawing.Point(245, 17);
-            this.txtCashTotal.Name = "txtCashTotal";
-            this.txtCashTotal.ReadOnly = true;
-            this.txtCashTotal.Size = new System.Drawing.Size(75, 20);
-            this.txtCashTotal.TabIndex = 15;
-            // 
-            // lblCashTotal
-            // 
-            this.lblCashTotal.AutoSize = true;
-            this.lblCashTotal.Location = new System.Drawing.Point(152, 20);
-            this.lblCashTotal.Name = "lblCashTotal";
-            this.lblCashTotal.Size = new System.Drawing.Size(61, 13);
-            this.lblCashTotal.TabIndex = 14;
-            this.lblCashTotal.Text = "Total Cash:";
-            // 
-            // txtTotalChecks
-            // 
-            this.txtTotalChecks.Location = new System.Drawing.Point(245, 38);
-            this.txtTotalChecks.Name = "txtTotalChecks";
-            this.txtTotalChecks.Size = new System.Drawing.Size(75, 20);
-            this.txtTotalChecks.TabIndex = 17;
-            // 
-            // lblTotalChecks
-            // 
-            this.lblTotalChecks.AutoSize = true;
-            this.lblTotalChecks.Location = new System.Drawing.Point(152, 41);
-            this.lblTotalChecks.Name = "lblTotalChecks";
-            this.lblTotalChecks.Size = new System.Drawing.Size(73, 13);
-            this.lblTotalChecks.TabIndex = 16;
-            this.lblTotalChecks.Text = "Total Checks:";
-            // 
-            // txtTotalCreditCards
-            // 
-            this.txtTotalCreditCards.Location = new System.Drawing.Point(245, 59);
-            this.txtTotalCreditCards.Name = "txtTotalCreditCards";
-            this.txtTotalCreditCards.Size = new System.Drawing.Size(75, 20);
-            this.txtTotalCreditCards.TabIndex = 19;
-            // 
-            // lblTotalCreditCards
-            // 
-            this.lblTotalCreditCards.AutoSize = true;
-            this.lblTotalCreditCards.Location = new System.Drawing.Point(152, 62);
-            this.lblTotalCreditCards.Name = "lblTotalCreditCards";
-            this.lblTotalCreditCards.Size = new System.Drawing.Size(94, 13);
-            this.lblTotalCreditCards.TabIndex = 18;
-            this.lblTotalCreditCards.Text = "Total Credit Cards:";
-            // 
-            // txtGrandTotal
-            // 
-            this.txtGrandTotal.Location = new System.Drawing.Point(245, 80);
-            this.txtGrandTotal.Name = "txtGrandTotal";
-            this.txtGrandTotal.ReadOnly = true;
-            this.txtGrandTotal.Size = new System.Drawing.Size(75, 20);
-            this.txtGrandTotal.TabIndex = 21;
-            // 
-            // lblGrandTotal
-            // 
-            this.lblGrandTotal.AutoSize = true;
-            this.lblGrandTotal.Location = new System.Drawing.Point(153, 83);
-            this.lblGrandTotal.Name = "lblGrandTotal";
-            this.lblGrandTotal.Size = new System.Drawing.Size(66, 13);
-            this.lblGrandTotal.TabIndex = 20;
-            this.lblGrandTotal.Text = "Grand Total:";
             // 
             // gbMisc
             // 
