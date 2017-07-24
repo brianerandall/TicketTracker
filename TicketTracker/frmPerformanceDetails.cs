@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -9,6 +10,7 @@ namespace TicketTracker
     public partial class frmPerformanceDetails : Form
     {
         public event EventHandler SaveButtonClicked;
+        public event EventHandler TextboxValidating;
 
         private ListViewItem _performanceInfo;
         private bool _addingNewPerformance;
@@ -37,11 +39,36 @@ namespace TicketTracker
             LoadTicketInfo();
         }
 
-        void evtTextboxValidating(object sender, CancelEventArgs e)
+        private void AddHandlers()
+        {
+            foreach (TextBox control in Controls.OfType<TextBox>())
+            {
+                control.Validating += new CancelEventHandler(OnTextboxValidating);
+            }
+        }
+
+        protected void OnTextboxValidating(object sender, CancelEventArgs e)
+        {
+            var tag = string.IsNullOrEmpty(((TextBox)sender).Tag.ToString()) ? string.Empty : ((TextBox)sender).Tag.ToString();
+
+            //if (TextboxValidating != null)
+            //{
+                if (tag.Contains("Integer"))
+                {
+                    ValidateIntegerAmount(sender, e);
+                }
+                else
+                {
+                    ValidateDecimalAmount(sender, e);
+                }
+            //}
+        }
+
+        private void ValidateDecimalAmount(object sender, CancelEventArgs e)
         {
             TextBox tx = sender as TextBox;
             decimal test;
-            if (!Decimal.TryParse(tx.Text, out test))
+            if (!decimal.TryParse(tx.Text, out test))
             {
                 MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;
@@ -50,8 +77,23 @@ namespace TicketTracker
                 tx.Text = test.ToString("0.00");
         }
 
+        private void ValidateIntegerAmount(object sender, CancelEventArgs e)
+        {
+            TextBox tx = sender as TextBox;
+            int test;
+            if (!int.TryParse(tx.Text, out test))
+            {
+                MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
+            }
+            else //this is the formatting line
+                tx.Text = test.ToString();
+        }
+
         private void frmShowPrices_Load(object sender, EventArgs e)
         {
+            AddHandlers();
+
             if (_performanceInfo != null)
             {
                 dtpPerformanceDate.Value = Convert.ToDateTime(_performanceInfo.SubItems[0].Text);
@@ -247,9 +289,81 @@ namespace TicketTracker
             }
         }
 
+        #region Textbox validation
         private void txtSeedMoney_Validating(object sender, CancelEventArgs e)
         {
-            evtTextboxValidating(sender, e);
+            ValidateDecimalAmount(sender, e);
         }
+
+        private void txtChangeCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtOnesCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtFivesCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtTensCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtTwentiesCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtFiftiesCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtHundredsCollected_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtTotalChecks_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtTotalCreditCards_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtSquareFees_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtDonations_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateDecimalAmount(sender, e);
+        }
+
+        private void txtClassPasses_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateIntegerAmount(sender, e);
+        }
+
+        private void txtStarVouchers_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateIntegerAmount(sender, e);
+        }
+
+        private void txtConcessionVouchers_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateIntegerAmount(sender, e);
+        }
+        #endregion
     }
 }

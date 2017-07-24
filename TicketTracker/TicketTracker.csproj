@@ -81,9 +81,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecimalBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="frmCustomize.cs">
       <SubType>Form</SubType>
     </Compile>

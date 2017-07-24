@@ -69,13 +69,13 @@
             this.txtChangeCollected = new System.Windows.Forms.TextBox();
             this.lblChangeCollected = new System.Windows.Forms.Label();
             this.gbMisc = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSquareFees = new System.Windows.Forms.TextBox();
             this.lblSquareFees = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtDonations = new System.Windows.Forms.TextBox();
             this.lblDonations = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtConcessionVouchers = new System.Windows.Forms.TextBox();
             this.lblConcessionVouchers = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtStarVouchers = new System.Windows.Forms.TextBox();
             this.lblStarVouchers = new System.Windows.Forms.Label();
             this.txtClassPasses = new System.Windows.Forms.TextBox();
             this.lblClassPasses = new System.Windows.Forms.Label();
@@ -210,7 +210,6 @@
             this.txtSeedMoney.Name = "txtSeedMoney";
             this.txtSeedMoney.Size = new System.Drawing.Size(100, 20);
             this.txtSeedMoney.TabIndex = 10;
-            this.txtSeedMoney.Validating += new System.ComponentModel.CancelEventHandler(this.txtSeedMoney_Validating);
             // 
             // gbAmounts
             // 
@@ -266,6 +265,7 @@
             this.txtTotalCreditCards.Name = "txtTotalCreditCards";
             this.txtTotalCreditCards.Size = new System.Drawing.Size(75, 20);
             this.txtTotalCreditCards.TabIndex = 19;
+            this.txtTotalCreditCards.Validating += new System.ComponentModel.CancelEventHandler(this.txtTotalCreditCards_Validating);
             // 
             // lblTotalCreditCards
             // 
@@ -282,6 +282,7 @@
             this.txtTotalChecks.Name = "txtTotalChecks";
             this.txtTotalChecks.Size = new System.Drawing.Size(75, 20);
             this.txtTotalChecks.TabIndex = 17;
+            this.txtTotalChecks.Validating += new System.ComponentModel.CancelEventHandler(this.txtTotalChecks_Validating);
             // 
             // lblTotalChecks
             // 
@@ -315,6 +316,7 @@
             this.txtHundredsCollected.Name = "txtHundredsCollected";
             this.txtHundredsCollected.Size = new System.Drawing.Size(75, 20);
             this.txtHundredsCollected.TabIndex = 13;
+            this.txtHundredsCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtHundredsCollected_Validating);
             // 
             // lblHundredsCollected
             // 
@@ -331,6 +333,7 @@
             this.txtFiftiesCollected.Name = "txtFiftiesCollected";
             this.txtFiftiesCollected.Size = new System.Drawing.Size(75, 20);
             this.txtFiftiesCollected.TabIndex = 11;
+            this.txtFiftiesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtFiftiesCollected_Validating);
             // 
             // lblFiftiesCollected
             // 
@@ -347,6 +350,7 @@
             this.txtTwentiesCollected.Name = "txtTwentiesCollected";
             this.txtTwentiesCollected.Size = new System.Drawing.Size(75, 20);
             this.txtTwentiesCollected.TabIndex = 9;
+            this.txtTwentiesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtTwentiesCollected_Validating);
             // 
             // lblTwentiesCollected
             // 
@@ -363,6 +367,7 @@
             this.txtTensCollected.Name = "txtTensCollected";
             this.txtTensCollected.Size = new System.Drawing.Size(75, 20);
             this.txtTensCollected.TabIndex = 7;
+            this.txtTensCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtTensCollected_Validating);
             // 
             // lblTensCollected
             // 
@@ -379,6 +384,7 @@
             this.txtFivesCollected.Name = "txtFivesCollected";
             this.txtFivesCollected.Size = new System.Drawing.Size(75, 20);
             this.txtFivesCollected.TabIndex = 5;
+            this.txtFivesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtFivesCollected_Validating);
             // 
             // lblFivesCollected
             // 
@@ -395,6 +401,7 @@
             this.txtOnesCollected.Name = "txtOnesCollected";
             this.txtOnesCollected.Size = new System.Drawing.Size(75, 20);
             this.txtOnesCollected.TabIndex = 3;
+            this.txtOnesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtOnesCollected_Validating);
             // 
             // lblOnesCollected
             // 
@@ -411,6 +418,7 @@
             this.txtChangeCollected.Name = "txtChangeCollected";
             this.txtChangeCollected.Size = new System.Drawing.Size(75, 20);
             this.txtChangeCollected.TabIndex = 1;
+            this.txtChangeCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtChangeCollected_Validating);
             // 
             // lblChangeCollected
             // 
@@ -423,13 +431,13 @@
             // 
             // gbMisc
             // 
-            this.gbMisc.Controls.Add(this.textBox1);
+            this.gbMisc.Controls.Add(this.txtSquareFees);
             this.gbMisc.Controls.Add(this.lblSquareFees);
-            this.gbMisc.Controls.Add(this.textBox2);
+            this.gbMisc.Controls.Add(this.txtDonations);
             this.gbMisc.Controls.Add(this.lblDonations);
-            this.gbMisc.Controls.Add(this.textBox3);
+            this.gbMisc.Controls.Add(this.txtConcessionVouchers);
             this.gbMisc.Controls.Add(this.lblConcessionVouchers);
-            this.gbMisc.Controls.Add(this.textBox4);
+            this.gbMisc.Controls.Add(this.txtStarVouchers);
             this.gbMisc.Controls.Add(this.lblStarVouchers);
             this.gbMisc.Controls.Add(this.txtClassPasses);
             this.gbMisc.Controls.Add(this.lblClassPasses);
@@ -440,12 +448,13 @@
             this.gbMisc.TabStop = false;
             this.gbMisc.Text = "Miscellaneous";
             // 
-            // textBox1
+            // txtSquareFees
             // 
-            this.textBox1.Location = new System.Drawing.Point(125, 101);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(75, 20);
-            this.textBox1.TabIndex = 19;
+            this.txtSquareFees.Location = new System.Drawing.Point(125, 101);
+            this.txtSquareFees.Name = "txtSquareFees";
+            this.txtSquareFees.Size = new System.Drawing.Size(75, 20);
+            this.txtSquareFees.TabIndex = 19;
+            this.txtSquareFees.Validating += new System.ComponentModel.CancelEventHandler(this.txtSquareFees_Validating);
             // 
             // lblSquareFees
             // 
@@ -456,12 +465,13 @@
             this.lblSquareFees.TabIndex = 18;
             this.lblSquareFees.Text = "Square Fees:";
             // 
-            // textBox2
+            // txtDonations
             // 
-            this.textBox2.Location = new System.Drawing.Point(125, 80);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(75, 20);
-            this.textBox2.TabIndex = 17;
+            this.txtDonations.Location = new System.Drawing.Point(125, 80);
+            this.txtDonations.Name = "txtDonations";
+            this.txtDonations.Size = new System.Drawing.Size(75, 20);
+            this.txtDonations.TabIndex = 17;
+            this.txtDonations.Validating += new System.ComponentModel.CancelEventHandler(this.txtDonations_Validating);
             // 
             // lblDonations
             // 
@@ -472,12 +482,13 @@
             this.lblDonations.TabIndex = 16;
             this.lblDonations.Text = "Donations:";
             // 
-            // textBox3
+            // txtConcessionVouchers
             // 
-            this.textBox3.Location = new System.Drawing.Point(125, 59);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(75, 20);
-            this.textBox3.TabIndex = 15;
+            this.txtConcessionVouchers.Location = new System.Drawing.Point(125, 59);
+            this.txtConcessionVouchers.Name = "txtConcessionVouchers";
+            this.txtConcessionVouchers.Size = new System.Drawing.Size(75, 20);
+            this.txtConcessionVouchers.TabIndex = 15;
+            this.txtConcessionVouchers.Validating += new System.ComponentModel.CancelEventHandler(this.txtConcessionVouchers_Validating);
             // 
             // lblConcessionVouchers
             // 
@@ -488,12 +499,13 @@
             this.lblConcessionVouchers.TabIndex = 14;
             this.lblConcessionVouchers.Text = "Concession Vouchers:";
             // 
-            // textBox4
+            // txtStarVouchers
             // 
-            this.textBox4.Location = new System.Drawing.Point(125, 38);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(75, 20);
-            this.textBox4.TabIndex = 13;
+            this.txtStarVouchers.Location = new System.Drawing.Point(125, 38);
+            this.txtStarVouchers.Name = "txtStarVouchers";
+            this.txtStarVouchers.Size = new System.Drawing.Size(75, 20);
+            this.txtStarVouchers.TabIndex = 13;
+            this.txtStarVouchers.Validating += new System.ComponentModel.CancelEventHandler(this.txtStarVouchers_Validating);
             // 
             // lblStarVouchers
             // 
@@ -510,6 +522,7 @@
             this.txtClassPasses.Name = "txtClassPasses";
             this.txtClassPasses.Size = new System.Drawing.Size(75, 20);
             this.txtClassPasses.TabIndex = 11;
+            this.txtClassPasses.Tag = "Integer";
             // 
             // lblClassPasses
             // 
@@ -627,13 +640,13 @@
         private System.Windows.Forms.TextBox txtTicketSales;
         private System.Windows.Forms.Label lblTicketSales;
         private System.Windows.Forms.GroupBox gbMisc;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSquareFees;
         private System.Windows.Forms.Label lblSquareFees;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtDonations;
         private System.Windows.Forms.Label lblDonations;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtConcessionVouchers;
         private System.Windows.Forms.Label lblConcessionVouchers;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtStarVouchers;
         private System.Windows.Forms.Label lblStarVouchers;
         private System.Windows.Forms.TextBox txtClassPasses;
         private System.Windows.Forms.Label lblClassPasses;
