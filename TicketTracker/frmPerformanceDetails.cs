@@ -10,11 +10,12 @@ namespace TicketTracker
     public partial class frmPerformanceDetails : Form
     {
         public event EventHandler SaveButtonClicked;
-        public event EventHandler TextboxValidating;
 
         private ListViewItem _performanceInfo;
         private bool _addingNewPerformance;
         private int _showId;
+        private PerformanceRepository _performanceRepo = new PerformanceRepository();
+        private TicketRepository _ticketRepo = new TicketRepository();
 
         public frmPerformanceDetails()
         {
@@ -37,57 +38,126 @@ namespace TicketTracker
         void evtTicketButtonClicked(object sender, EventArgs e)
         {
             LoadTicketInfo();
+            RecalculateAmounts();
         }
 
         private void AddHandlers()
         {
-            foreach (TextBox control in Controls.OfType<TextBox>())
+            foreach (var control in Controls)
             {
-                control.Validating += new CancelEventHandler(OnTextboxValidating);
+                if (control.GetType().Name == "TextBox")
+                {
+                    ((TextBox)control).Validating += new CancelEventHandler(OnTextboxValidating);
+                }
+                else
+                {
+                    if (control.GetType().Name == "GroupBox")
+                    {
+                        foreach (TextBox innerControl in ((GroupBox)control).Controls.OfType<TextBox>())
+                        {
+                            innerControl.Validating += new CancelEventHandler(OnTextboxValidating);
+                        }
+                    }
+                }               
             }
         }
 
         protected void OnTextboxValidating(object sender, CancelEventArgs e)
         {
-            var tag = string.IsNullOrEmpty(((TextBox)sender).Tag.ToString()) ? string.Empty : ((TextBox)sender).Tag.ToString();
+            string tag;
 
-            //if (TextboxValidating != null)
-            //{
-                if (tag.Contains("Integer"))
-                {
-                    ValidateIntegerAmount(sender, e);
-                }
-                else
-                {
-                    ValidateDecimalAmount(sender, e);
-                }
-            //}
+            if (((TextBox)sender).Tag == null)
+            {
+                tag = string.Empty;
+            }
+            else
+            {
+                tag = ((TextBox)sender).Tag.ToString();
+            }            
+
+            if (tag.Contains("Integer"))
+            {
+                ValidateIntegerAmount(sender, e);
+            }
+            else
+            {
+                ValidateDecimalAmount(sender, e);
+            }
+
+            RecalculateAmounts();
+        }
+
+        private void RecalculateAmounts()
+        {
+            decimal seedMoney;
+            decimal changeCollected;
+            decimal onesCollected;
+            decimal fivesCollected;
+            decimal tensCollected;
+            decimal twentiesCollected;
+            decimal fiftiesCollected;
+            decimal hundredsCollected;
+            decimal checksCollected;
+            decimal creditCardsCollected;
+            decimal ticketSales;           
+            decimal totalCashCollected;
+            decimal totalAmountCollected;
+
+            var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
+            ticketSales = _performanceRepo.GetTicketSalesForPerformance(performanceId);
+
+
+            decimal.TryParse(txtSeedMoney.Text, out seedMoney);
+            decimal.TryParse(txtChangeCollected.Text, out changeCollected);
+            decimal.TryParse(txtOnesCollected.Text, out onesCollected);
+            decimal.TryParse(txtFivesCollected.Text, out fivesCollected);
+            decimal.TryParse(txtTensCollected.Text, out tensCollected);
+            decimal.TryParse(txtTwentiesCollected.Text, out twentiesCollected);
+            decimal.TryParse(txtFiftiesCollected.Text, out fiftiesCollected);
+            decimal.TryParse(txtHundredsCollected.Text, out hundredsCollected);
+            decimal.TryParse(txtTotalChecks.Text, out checksCollected);
+            decimal.TryParse(txtTotalCreditCards.Text, out creditCardsCollected);
+
+            totalCashCollected = changeCollected + onesCollected + fivesCollected + tensCollected + twentiesCollected + fiftiesCollected + hundredsCollected;
+            totalAmountCollected = totalCashCollected + checksCollected + creditCardsCollected;
+            
+            txtTicketSales.Text = ticketSales.ToString("0.00");
+            txtTotalCollected.Text = totalAmountCollected.ToString("0.00");
+            txtCashTotal.Text = totalCashCollected.ToString("0.00");
+            txtTotalChecks.Text = checksCollected.ToString("0.00");
+            txtGrandTotal.Text = totalAmountCollected.ToString("0.00");
         }
 
         private void ValidateDecimalAmount(object sender, CancelEventArgs e)
         {
-            TextBox tx = sender as TextBox;
-            decimal test;
-            if (!decimal.TryParse(tx.Text, out test))
+            if (!string.IsNullOrEmpty(((TextBox)sender).Text))
             {
-                MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                e.Cancel = true;
+                TextBox tx = sender as TextBox;
+                decimal test;
+                if (!decimal.TryParse(tx.Text, out test))
+                {
+                    MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                }
+                else //this is the formatting line
+                    tx.Text = test.ToString("0.00");
             }
-            else //this is the formatting line
-                tx.Text = test.ToString("0.00");
         }
 
         private void ValidateIntegerAmount(object sender, CancelEventArgs e)
         {
-            TextBox tx = sender as TextBox;
-            int test;
-            if (!int.TryParse(tx.Text, out test))
+            if (!string.IsNullOrEmpty(((TextBox)sender).Text))
             {
-                MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                e.Cancel = true;
+                TextBox tx = sender as TextBox;
+                int test;
+                if (!int.TryParse(tx.Text, out test))
+                {
+                    MessageBox.Show("Please enter a valid amount", "Amount Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                }
+                else //this is the formatting line
+                    tx.Text = test.ToString();
             }
-            else //this is the formatting line
-                tx.Text = test.ToString();
         }
 
         private void frmShowPrices_Load(object sender, EventArgs e)
@@ -98,7 +168,28 @@ namespace TicketTracker
             {
                 dtpPerformanceDate.Value = Convert.ToDateTime(_performanceInfo.SubItems[0].Text);
 
+                var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
+                var performance = _performanceRepo.GetSingle(p => p.PerformanceId == performanceId);
+
+                txtSeedMoney.Text = performance.StartingCash.GetValueOrDefault().ToString("0.00");
+                txtChangeCollected.Text = performance.ChangeCollected.GetValueOrDefault().ToString("0.00");
+                txtOnesCollected.Text = performance.OnesCollected.GetValueOrDefault().ToString("0.00");
+                txtFivesCollected.Text = performance.FivesCollected.GetValueOrDefault().ToString("0.00");
+                txtTensCollected.Text = performance.TensCollected.GetValueOrDefault().ToString("0.00");
+                txtTwentiesCollected.Text = performance.TwentiesCollected.GetValueOrDefault().ToString("0.00");
+                txtFiftiesCollected.Text = performance.FiftiesCollected.GetValueOrDefault().ToString("0.00");
+                txtHundredsCollected.Text = performance.HundredsCollected.GetValueOrDefault().ToString("0.00");
+                txtTotalChecks.Text = performance.CheckAmount.GetValueOrDefault().ToString("0.00");
+                txtTotalCreditCards.Text = performance.CreditCardAmount.GetValueOrDefault().ToString("0.00");
+                txtSeasonPasses.Text = performance.SeasonPasses.GetValueOrDefault().ToString("0");
+                txtClassPasses.Text = performance.ClassPasses.GetValueOrDefault().ToString("0");
+                txtConcessionVouchers.Text = performance.ConcessionVoucherAmount.GetValueOrDefault().ToString("0.00");
+                txtStarVouchers.Text = performance.StarVoucherAmount.GetValueOrDefault().ToString("0.00");
+                txtDonations.Text = performance.Donations.GetValueOrDefault().ToString("0.00");
+                txtSquareFees.Text = performance.CreditCardFees.GetValueOrDefault().ToString("0.00");
+
                 LoadTicketInfo();
+                RecalculateAmounts();
             }            
         }
 
@@ -108,8 +199,7 @@ namespace TicketTracker
             {
                 var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
 
-                var repo = new TicketRepository();
-                var tickets = repo.GetList(t => t.PerformanceId == performanceId);
+                var tickets = _ticketRepo.GetList(t => t.PerformanceId == performanceId);
 
                 lstTicketPrices.Items.Clear();
                 foreach (var ticket in tickets)
@@ -153,8 +243,6 @@ namespace TicketTracker
         {
             if (ValidateForm())
             {
-                var performanceRepo = new PerformanceRepository();
-
                 var performanceDate = dtpPerformanceDate.Value;
 
                 try
@@ -174,6 +262,7 @@ namespace TicketTracker
                         performanceDto.CheckAmount = 0;
                         performanceDto.CreditCardAmount = 0;
                         performanceDto.StartingCash = 0;
+                        performanceDto.SeasonPasses = 0;
                         performanceDto.ClassPasses = 0;
                         performanceDto.StarVoucherAmount = 0;
                         performanceDto.ConcessionVoucherAmount = 0;
@@ -182,13 +271,13 @@ namespace TicketTracker
                         performanceDto.CreditCardFees = 0;
                         performanceDto.SeasonPasses = 0;
 
-                        performanceRepo.Add(performanceDto);
+                        _performanceRepo.Add(performanceDto);
                     }
                     else
                     {
                         var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text.ToString());
 
-                        var performanceDto = performanceRepo.GetSingle(p => p.PerformanceId == performanceId);
+                        var performanceDto = _performanceRepo.GetSingle(p => p.PerformanceId == performanceId);
                         performanceDto.ShowId = _showId;
                         performanceDto.Date = performanceDate;
                         performanceDto.ChangeCollected = 0;
@@ -201,6 +290,7 @@ namespace TicketTracker
                         performanceDto.CheckAmount = 0;
                         performanceDto.CreditCardAmount = 0;
                         performanceDto.StartingCash = 0;
+                        performanceDto.SeasonPasses = 0;
                         performanceDto.ClassPasses = 0;
                         performanceDto.StarVoucherAmount = 0;
                         performanceDto.ConcessionVoucherAmount = 0;
@@ -209,7 +299,7 @@ namespace TicketTracker
                         performanceDto.CreditCardFees = 0;
                         performanceDto.SeasonPasses = 0;
 
-                        performanceRepo.Update(performanceDto);
+                        _performanceRepo.Update(performanceDto);
                     }
 
                     if (SaveButtonClicked != null)
@@ -274,12 +364,12 @@ namespace TicketTracker
 
                 try
                 {
-                    var ticketRepository = new TicketRepository();
-                    var ticket = ticketRepository.GetSingle(t => t.TicketId == ticketId);
+                    var ticket = _ticketRepo.GetSingle(t => t.TicketId == ticketId);
 
-                    ticketRepository.Remove(ticket);
+                    _ticketRepo.Remove(ticket);
 
                     LoadTicketInfo();
+                    RecalculateAmounts();
                 }
                 catch (Exception ex)
                 {
@@ -288,82 +378,5 @@ namespace TicketTracker
                 }
             }
         }
-
-        #region Textbox validation
-        private void txtSeedMoney_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtChangeCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtOnesCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtFivesCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtTensCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtTwentiesCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtFiftiesCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtHundredsCollected_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtTotalChecks_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtTotalCreditCards_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtSquareFees_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtDonations_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateDecimalAmount(sender, e);
-        }
-
-        private void txtClassPasses_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateIntegerAmount(sender, e);
-        }
-
-        private void txtStarVouchers_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateIntegerAmount(sender, e);
-        }
-
-        private void txtConcessionVouchers_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateIntegerAmount(sender, e);
-        }
-        #endregion
     }
 }

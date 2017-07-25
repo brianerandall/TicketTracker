@@ -83,6 +83,8 @@
             this.lblTicketSales = new System.Windows.Forms.Label();
             this.txtTotalCollected = new System.Windows.Forms.TextBox();
             this.lblTotalCollected = new System.Windows.Forms.Label();
+            this.txtSeasonPasses = new System.Windows.Forms.TextBox();
+            this.lblSeasonPasses = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.gbAmounts.SuspendLayout();
             this.gbMisc.SuspendLayout();
@@ -104,7 +106,7 @@
             this.dtpPerformanceDate.Location = new System.Drawing.Point(101, 5);
             this.dtpPerformanceDate.Name = "dtpPerformanceDate";
             this.dtpPerformanceDate.Size = new System.Drawing.Size(149, 20);
-            this.dtpPerformanceDate.TabIndex = 1;
+            this.dtpPerformanceDate.TabIndex = 0;
             // 
             // lblTicketPrices
             // 
@@ -166,7 +168,7 @@
             this.btnSave.Location = new System.Drawing.Point(128, 491);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 6;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -176,7 +178,7 @@
             this.btnClose.Location = new System.Drawing.Point(231, 491);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 7;
+            this.btnClose.TabIndex = 8;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -190,7 +192,7 @@
             this.btnDeleteTicket.Location = new System.Drawing.Point(87, 373);
             this.btnDeleteTicket.Name = "btnDeleteTicket";
             this.btnDeleteTicket.Size = new System.Drawing.Size(81, 23);
-            this.btnDeleteTicket.TabIndex = 8;
+            this.btnDeleteTicket.TabIndex = 6;
             this.btnDeleteTicket.Text = "Delete Ticket";
             this.btnDeleteTicket.UseVisualStyleBackColor = true;
             this.btnDeleteTicket.Click += new System.EventHandler(this.btnDeleteTicket_Click);
@@ -209,7 +211,7 @@
             this.txtSeedMoney.Location = new System.Drawing.Point(78, 37);
             this.txtSeedMoney.Name = "txtSeedMoney";
             this.txtSeedMoney.Size = new System.Drawing.Size(100, 20);
-            this.txtSeedMoney.TabIndex = 10;
+            this.txtSeedMoney.TabIndex = 1;
             // 
             // gbAmounts
             // 
@@ -238,7 +240,7 @@
             this.gbAmounts.Location = new System.Drawing.Point(5, 67);
             this.gbAmounts.Name = "gbAmounts";
             this.gbAmounts.Size = new System.Drawing.Size(332, 170);
-            this.gbAmounts.TabIndex = 11;
+            this.gbAmounts.TabIndex = 2;
             this.gbAmounts.TabStop = false;
             this.gbAmounts.Text = "Cash/Check/Credit Cards";
             // 
@@ -249,6 +251,7 @@
             this.txtGrandTotal.ReadOnly = true;
             this.txtGrandTotal.Size = new System.Drawing.Size(75, 20);
             this.txtGrandTotal.TabIndex = 21;
+            this.txtGrandTotal.TabStop = false;
             // 
             // lblGrandTotal
             // 
@@ -264,8 +267,7 @@
             this.txtTotalCreditCards.Location = new System.Drawing.Point(245, 59);
             this.txtTotalCreditCards.Name = "txtTotalCreditCards";
             this.txtTotalCreditCards.Size = new System.Drawing.Size(75, 20);
-            this.txtTotalCreditCards.TabIndex = 19;
-            this.txtTotalCreditCards.Validating += new System.ComponentModel.CancelEventHandler(this.txtTotalCreditCards_Validating);
+            this.txtTotalCreditCards.TabIndex = 8;
             // 
             // lblTotalCreditCards
             // 
@@ -281,8 +283,7 @@
             this.txtTotalChecks.Location = new System.Drawing.Point(245, 38);
             this.txtTotalChecks.Name = "txtTotalChecks";
             this.txtTotalChecks.Size = new System.Drawing.Size(75, 20);
-            this.txtTotalChecks.TabIndex = 17;
-            this.txtTotalChecks.Validating += new System.ComponentModel.CancelEventHandler(this.txtTotalChecks_Validating);
+            this.txtTotalChecks.TabIndex = 7;
             // 
             // lblTotalChecks
             // 
@@ -300,6 +301,7 @@
             this.txtCashTotal.ReadOnly = true;
             this.txtCashTotal.Size = new System.Drawing.Size(75, 20);
             this.txtCashTotal.TabIndex = 15;
+            this.txtCashTotal.TabStop = false;
             // 
             // lblCashTotal
             // 
@@ -315,8 +317,7 @@
             this.txtHundredsCollected.Location = new System.Drawing.Point(58, 143);
             this.txtHundredsCollected.Name = "txtHundredsCollected";
             this.txtHundredsCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtHundredsCollected.TabIndex = 13;
-            this.txtHundredsCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtHundredsCollected_Validating);
+            this.txtHundredsCollected.TabIndex = 6;
             // 
             // lblHundredsCollected
             // 
@@ -332,8 +333,7 @@
             this.txtFiftiesCollected.Location = new System.Drawing.Point(58, 122);
             this.txtFiftiesCollected.Name = "txtFiftiesCollected";
             this.txtFiftiesCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtFiftiesCollected.TabIndex = 11;
-            this.txtFiftiesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtFiftiesCollected_Validating);
+            this.txtFiftiesCollected.TabIndex = 5;
             // 
             // lblFiftiesCollected
             // 
@@ -349,8 +349,7 @@
             this.txtTwentiesCollected.Location = new System.Drawing.Point(58, 101);
             this.txtTwentiesCollected.Name = "txtTwentiesCollected";
             this.txtTwentiesCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtTwentiesCollected.TabIndex = 9;
-            this.txtTwentiesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtTwentiesCollected_Validating);
+            this.txtTwentiesCollected.TabIndex = 4;
             // 
             // lblTwentiesCollected
             // 
@@ -366,8 +365,7 @@
             this.txtTensCollected.Location = new System.Drawing.Point(58, 80);
             this.txtTensCollected.Name = "txtTensCollected";
             this.txtTensCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtTensCollected.TabIndex = 7;
-            this.txtTensCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtTensCollected_Validating);
+            this.txtTensCollected.TabIndex = 3;
             // 
             // lblTensCollected
             // 
@@ -383,8 +381,7 @@
             this.txtFivesCollected.Location = new System.Drawing.Point(58, 59);
             this.txtFivesCollected.Name = "txtFivesCollected";
             this.txtFivesCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtFivesCollected.TabIndex = 5;
-            this.txtFivesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtFivesCollected_Validating);
+            this.txtFivesCollected.TabIndex = 2;
             // 
             // lblFivesCollected
             // 
@@ -400,8 +397,7 @@
             this.txtOnesCollected.Location = new System.Drawing.Point(58, 38);
             this.txtOnesCollected.Name = "txtOnesCollected";
             this.txtOnesCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtOnesCollected.TabIndex = 3;
-            this.txtOnesCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtOnesCollected_Validating);
+            this.txtOnesCollected.TabIndex = 1;
             // 
             // lblOnesCollected
             // 
@@ -417,8 +413,7 @@
             this.txtChangeCollected.Location = new System.Drawing.Point(58, 17);
             this.txtChangeCollected.Name = "txtChangeCollected";
             this.txtChangeCollected.Size = new System.Drawing.Size(75, 20);
-            this.txtChangeCollected.TabIndex = 1;
-            this.txtChangeCollected.Validating += new System.ComponentModel.CancelEventHandler(this.txtChangeCollected_Validating);
+            this.txtChangeCollected.TabIndex = 0;
             // 
             // lblChangeCollected
             // 
@@ -431,6 +426,8 @@
             // 
             // gbMisc
             // 
+            this.gbMisc.Controls.Add(this.txtSeasonPasses);
+            this.gbMisc.Controls.Add(this.lblSeasonPasses);
             this.gbMisc.Controls.Add(this.txtSquareFees);
             this.gbMisc.Controls.Add(this.lblSquareFees);
             this.gbMisc.Controls.Add(this.txtDonations);
@@ -444,22 +441,21 @@
             this.gbMisc.Location = new System.Drawing.Point(343, 67);
             this.gbMisc.Name = "gbMisc";
             this.gbMisc.Size = new System.Drawing.Size(208, 170);
-            this.gbMisc.TabIndex = 12;
+            this.gbMisc.TabIndex = 3;
             this.gbMisc.TabStop = false;
             this.gbMisc.Text = "Miscellaneous";
             // 
             // txtSquareFees
             // 
-            this.txtSquareFees.Location = new System.Drawing.Point(125, 101);
+            this.txtSquareFees.Location = new System.Drawing.Point(125, 122);
             this.txtSquareFees.Name = "txtSquareFees";
             this.txtSquareFees.Size = new System.Drawing.Size(75, 20);
-            this.txtSquareFees.TabIndex = 19;
-            this.txtSquareFees.Validating += new System.ComponentModel.CancelEventHandler(this.txtSquareFees_Validating);
+            this.txtSquareFees.TabIndex = 4;
             // 
             // lblSquareFees
             // 
             this.lblSquareFees.AutoSize = true;
-            this.lblSquareFees.Location = new System.Drawing.Point(51, 105);
+            this.lblSquareFees.Location = new System.Drawing.Point(51, 126);
             this.lblSquareFees.Name = "lblSquareFees";
             this.lblSquareFees.Size = new System.Drawing.Size(70, 13);
             this.lblSquareFees.TabIndex = 18;
@@ -467,16 +463,15 @@
             // 
             // txtDonations
             // 
-            this.txtDonations.Location = new System.Drawing.Point(125, 80);
+            this.txtDonations.Location = new System.Drawing.Point(125, 101);
             this.txtDonations.Name = "txtDonations";
             this.txtDonations.Size = new System.Drawing.Size(75, 20);
-            this.txtDonations.TabIndex = 17;
-            this.txtDonations.Validating += new System.ComponentModel.CancelEventHandler(this.txtDonations_Validating);
+            this.txtDonations.TabIndex = 3;
             // 
             // lblDonations
             // 
             this.lblDonations.AutoSize = true;
-            this.lblDonations.Location = new System.Drawing.Point(63, 83);
+            this.lblDonations.Location = new System.Drawing.Point(63, 105);
             this.lblDonations.Name = "lblDonations";
             this.lblDonations.Size = new System.Drawing.Size(58, 13);
             this.lblDonations.TabIndex = 16;
@@ -484,16 +479,15 @@
             // 
             // txtConcessionVouchers
             // 
-            this.txtConcessionVouchers.Location = new System.Drawing.Point(125, 59);
+            this.txtConcessionVouchers.Location = new System.Drawing.Point(125, 80);
             this.txtConcessionVouchers.Name = "txtConcessionVouchers";
             this.txtConcessionVouchers.Size = new System.Drawing.Size(75, 20);
-            this.txtConcessionVouchers.TabIndex = 15;
-            this.txtConcessionVouchers.Validating += new System.ComponentModel.CancelEventHandler(this.txtConcessionVouchers_Validating);
+            this.txtConcessionVouchers.TabIndex = 2;
             // 
             // lblConcessionVouchers
             // 
             this.lblConcessionVouchers.AutoSize = true;
-            this.lblConcessionVouchers.Location = new System.Drawing.Point(8, 62);
+            this.lblConcessionVouchers.Location = new System.Drawing.Point(8, 83);
             this.lblConcessionVouchers.Name = "lblConcessionVouchers";
             this.lblConcessionVouchers.Size = new System.Drawing.Size(113, 13);
             this.lblConcessionVouchers.TabIndex = 14;
@@ -501,16 +495,15 @@
             // 
             // txtStarVouchers
             // 
-            this.txtStarVouchers.Location = new System.Drawing.Point(125, 38);
+            this.txtStarVouchers.Location = new System.Drawing.Point(125, 59);
             this.txtStarVouchers.Name = "txtStarVouchers";
             this.txtStarVouchers.Size = new System.Drawing.Size(75, 20);
-            this.txtStarVouchers.TabIndex = 13;
-            this.txtStarVouchers.Validating += new System.ComponentModel.CancelEventHandler(this.txtStarVouchers_Validating);
+            this.txtStarVouchers.TabIndex = 1;
             // 
             // lblStarVouchers
             // 
             this.lblStarVouchers.AutoSize = true;
-            this.lblStarVouchers.Location = new System.Drawing.Point(44, 41);
+            this.lblStarVouchers.Location = new System.Drawing.Point(44, 62);
             this.lblStarVouchers.Name = "lblStarVouchers";
             this.lblStarVouchers.Size = new System.Drawing.Size(77, 13);
             this.lblStarVouchers.TabIndex = 12;
@@ -518,16 +511,16 @@
             // 
             // txtClassPasses
             // 
-            this.txtClassPasses.Location = new System.Drawing.Point(125, 17);
+            this.txtClassPasses.Location = new System.Drawing.Point(125, 38);
             this.txtClassPasses.Name = "txtClassPasses";
             this.txtClassPasses.Size = new System.Drawing.Size(75, 20);
-            this.txtClassPasses.TabIndex = 11;
+            this.txtClassPasses.TabIndex = 0;
             this.txtClassPasses.Tag = "Integer";
             // 
             // lblClassPasses
             // 
             this.lblClassPasses.AutoSize = true;
-            this.lblClassPasses.Location = new System.Drawing.Point(49, 20);
+            this.lblClassPasses.Location = new System.Drawing.Point(49, 41);
             this.lblClassPasses.Name = "lblClassPasses";
             this.lblClassPasses.Size = new System.Drawing.Size(72, 13);
             this.lblClassPasses.TabIndex = 10;
@@ -540,6 +533,7 @@
             this.txtTicketSales.ReadOnly = true;
             this.txtTicketSales.Size = new System.Drawing.Size(100, 20);
             this.txtTicketSales.TabIndex = 14;
+            this.txtTicketSales.TabStop = false;
             // 
             // lblTicketSales
             // 
@@ -557,6 +551,7 @@
             this.txtTotalCollected.ReadOnly = true;
             this.txtTotalCollected.Size = new System.Drawing.Size(100, 20);
             this.txtTotalCollected.TabIndex = 16;
+            this.txtTotalCollected.TabStop = false;
             // 
             // lblTotalCollected
             // 
@@ -566,6 +561,23 @@
             this.lblTotalCollected.Size = new System.Drawing.Size(93, 13);
             this.lblTotalCollected.TabIndex = 15;
             this.lblTotalCollected.Text = "Amount Collected:";
+            // 
+            // txtSeasonPasses
+            // 
+            this.txtSeasonPasses.Location = new System.Drawing.Point(125, 17);
+            this.txtSeasonPasses.Name = "txtSeasonPasses";
+            this.txtSeasonPasses.Size = new System.Drawing.Size(75, 20);
+            this.txtSeasonPasses.TabIndex = 19;
+            this.txtSeasonPasses.Tag = "Integer";
+            // 
+            // lblSeasonPasses
+            // 
+            this.lblSeasonPasses.AutoSize = true;
+            this.lblSeasonPasses.Location = new System.Drawing.Point(38, 20);
+            this.lblSeasonPasses.Name = "lblSeasonPasses";
+            this.lblSeasonPasses.Size = new System.Drawing.Size(83, 13);
+            this.lblSeasonPasses.TabIndex = 20;
+            this.lblSeasonPasses.Text = "Season Passes:";
             // 
             // frmPerformanceDetails
             // 
@@ -658,5 +670,7 @@
         private System.Windows.Forms.Label lblTotalChecks;
         private System.Windows.Forms.TextBox txtCashTotal;
         private System.Windows.Forms.Label lblCashTotal;
+        private System.Windows.Forms.TextBox txtSeasonPasses;
+        private System.Windows.Forms.Label lblSeasonPasses;
     }
 }

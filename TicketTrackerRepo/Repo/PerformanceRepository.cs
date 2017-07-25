@@ -50,5 +50,19 @@ namespace TicketTrackerRepo.Repo
 
             return amountCollected;
         }
+
+        public decimal GetTicketSalesForPerformance(int performanceId)
+        {
+            var ticketRepo = new TicketRepository();
+            var ticketSales = 0M;
+
+            var tickets = ticketRepo.GetList(t => t.PerformanceId == performanceId);
+            foreach (var ticket in tickets)
+            {
+                ticketSales += ticket.AmountSold.GetValueOrDefault() * ticket.Price.GetValueOrDefault();
+            }
+
+            return ticketSales;
+        }
     }
 }
