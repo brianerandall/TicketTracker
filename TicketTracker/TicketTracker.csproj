@@ -182,16 +182,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicketTrackerData\TicketTrackerEntityModel.csproj">
-      <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
-      <Name>TicketTrackerEntityModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TicketTrackerRepo\TicketTrackerRepo.csproj">
-      <Project>{25e1531a-4a2f-409d-a381-262233bca691}</Project>
-      <Name>TicketTrackerRepo</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Data\TicketTracker.mdf" />
     <Content Include="Data\TicketTracker_log.ldf">
       <DependentUpon>TicketTracker.mdf</DependentUpon>
@@ -209,6 +199,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TicketTrackerData\TicketTrackerEntityModel.csproj">
+      <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
+      <Name>TicketTrackerEntityModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TicketTrackerRepo\TicketTrackerRepo.csproj">
+      <Project>{25e1531a-4a2f-409d-a381-262233bca691}</Project>
+      <Name>TicketTrackerRepo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
