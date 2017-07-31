@@ -1,4 +1,5 @@
-﻿using TicketTrackerEntityModel;
+﻿using System.Linq;
+using TicketTrackerEntityModel;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Interfaces;
 
@@ -30,38 +31,26 @@ namespace TicketTrackerRepo.Repo
             showRepo.Remove(show);
         }
 
-        public int GetTicketsSoldForShow(int showId)
+        public ShowDto GetAllShowInformation(int showId)
         {
-            var performanceRepo = new PerformanceRepository();
-            var amountSold = 0;
+            var showRepo = new ShowRepository();
+            var showDto = showRepo.GetSingle(s => s.ShowId == showId, s => s.Performances, s => s.ShowType);
 
-            var performances = performanceRepo.GetList(p => p.ShowId == showId, p => p.Tickets);
-            foreach (var performance in performances)
+            foreach (var performance in showDto.Performances)
             {
-                foreach (var ticket in performance.Tickets)
+                var ticketRepo = new TicketRepository();
+                var tickets = ticketRepo.GetList(t => t.PerformanceId == performance.PerformanceId);
+
+                if (tickets != null)
                 {
-                    amountSold += ticket.AmountSold.GetValueOrDefault();
+                    if (tickets.Count > 0)
+                    {
+                        showDto.Performances.Find(p => p.PerformanceId == performance.PerformanceId).Tickets = tickets.ToList();
+                    }
                 }
             }
 
-            return amountSold;
-        }
-
-        public decimal GetAmountCollectedForShow(int showId)
-        {
-            var performanceRepo = new PerformanceRepository();
-            var amountCollected = 0M;
-
-            var performances = performanceRepo.GetList(p => p.ShowId == showId, p => p.Tickets);
-            foreach (var performance in performances)
-            {
-                foreach (var ticket in performance.Tickets)
-                {
-                    amountCollected += ticket.AmountSold.GetValueOrDefault() * ticket.Price.GetValueOrDefault();
-                }
-            }
-
-            return amountCollected;
+            return showDto;
         }
     }
 }

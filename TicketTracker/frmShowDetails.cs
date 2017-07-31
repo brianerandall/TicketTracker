@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using TicketTrackerRepo.DTOs;
 using TicketTrackerRepo.Repo;
@@ -58,6 +59,7 @@ namespace TicketTracker
                
                 lstPerformances.Enabled = !_addingNewShow;
                 btnAddPerformances.Enabled = !_addingNewShow;
+                btnDeletePerformance.Enabled = !_addingNewShow;
             }
             catch (Exception ex)
             {
@@ -78,9 +80,9 @@ namespace TicketTracker
                 lstPerformances.Items.Clear();
                 foreach (var performance in performances)
                 {
-                    var item = new ListViewItem(performance.Date.ToString());                    
-                    item.SubItems.Add(repo.GetTicketsSoldForPerformance(performance.PerformanceId).ToString());
-                    item.SubItems.Add(repo.GetAmountCollectedForPerformance(performance.PerformanceId).ToString());
+                    var item = new ListViewItem(performance.Date.ToString());
+                    item.SubItems.Add(performance.Tickets.Sum(t => t.AmountSold.GetValueOrDefault()).ToString());
+                    item.SubItems.Add(performance.Tickets.Sum(t => t.AmountSold.GetValueOrDefault() * t.Price.GetValueOrDefault()).ToString());
                     item.SubItems.Add(performance.ShowId.ToString());
                     item.SubItems.Add(performance.PerformanceId.ToString());
 

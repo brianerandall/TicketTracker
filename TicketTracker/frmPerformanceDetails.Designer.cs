@@ -69,6 +69,8 @@
             this.txtChangeCollected = new System.Windows.Forms.TextBox();
             this.lblChangeCollected = new System.Windows.Forms.Label();
             this.gbMisc = new System.Windows.Forms.GroupBox();
+            this.txtSeasonPasses = new System.Windows.Forms.TextBox();
+            this.lblSeasonPasses = new System.Windows.Forms.Label();
             this.txtSquareFees = new System.Windows.Forms.TextBox();
             this.lblSquareFees = new System.Windows.Forms.Label();
             this.txtDonations = new System.Windows.Forms.TextBox();
@@ -83,8 +85,10 @@
             this.lblTicketSales = new System.Windows.Forms.Label();
             this.txtTotalCollected = new System.Windows.Forms.TextBox();
             this.lblTotalCollected = new System.Windows.Forms.Label();
-            this.txtSeasonPasses = new System.Windows.Forms.TextBox();
-            this.lblSeasonPasses = new System.Windows.Forms.Label();
+            this.txtDifference = new System.Windows.Forms.TextBox();
+            this.lblDifference = new System.Windows.Forms.Label();
+            this.txtMiscellaneous = new System.Windows.Forms.TextBox();
+            this.lblMiscellaneous = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.gbAmounts.SuspendLayout();
             this.gbMisc.SuspendLayout();
@@ -101,11 +105,11 @@
             // 
             // dtpPerformanceDate
             // 
-            this.dtpPerformanceDate.CustomFormat = "MM/dd/yyyy hh:mm tt";
+            this.dtpPerformanceDate.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
             this.dtpPerformanceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpPerformanceDate.Location = new System.Drawing.Point(101, 5);
             this.dtpPerformanceDate.Name = "dtpPerformanceDate";
-            this.dtpPerformanceDate.Size = new System.Drawing.Size(149, 20);
+            this.dtpPerformanceDate.Size = new System.Drawing.Size(150, 20);
             this.dtpPerformanceDate.TabIndex = 0;
             // 
             // lblTicketPrices
@@ -165,7 +169,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(128, 491);
+            this.btnSave.Location = new System.Drawing.Point(286, 489);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 7;
@@ -175,7 +179,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(231, 491);
+            this.btnClose.Location = new System.Drawing.Point(389, 489);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 8;
@@ -426,6 +430,8 @@
             // 
             // gbMisc
             // 
+            this.gbMisc.Controls.Add(this.txtMiscellaneous);
+            this.gbMisc.Controls.Add(this.lblMiscellaneous);
             this.gbMisc.Controls.Add(this.txtSeasonPasses);
             this.gbMisc.Controls.Add(this.lblSeasonPasses);
             this.gbMisc.Controls.Add(this.txtSquareFees);
@@ -445,12 +451,29 @@
             this.gbMisc.TabStop = false;
             this.gbMisc.Text = "Miscellaneous";
             // 
+            // txtSeasonPasses
+            // 
+            this.txtSeasonPasses.Location = new System.Drawing.Point(125, 17);
+            this.txtSeasonPasses.Name = "txtSeasonPasses";
+            this.txtSeasonPasses.Size = new System.Drawing.Size(75, 20);
+            this.txtSeasonPasses.TabIndex = 0;
+            this.txtSeasonPasses.Tag = "Integer";
+            // 
+            // lblSeasonPasses
+            // 
+            this.lblSeasonPasses.AutoSize = true;
+            this.lblSeasonPasses.Location = new System.Drawing.Point(38, 20);
+            this.lblSeasonPasses.Name = "lblSeasonPasses";
+            this.lblSeasonPasses.Size = new System.Drawing.Size(83, 13);
+            this.lblSeasonPasses.TabIndex = 20;
+            this.lblSeasonPasses.Text = "Season Passes:";
+            // 
             // txtSquareFees
             // 
             this.txtSquareFees.Location = new System.Drawing.Point(125, 122);
             this.txtSquareFees.Name = "txtSquareFees";
             this.txtSquareFees.Size = new System.Drawing.Size(75, 20);
-            this.txtSquareFees.TabIndex = 4;
+            this.txtSquareFees.TabIndex = 5;
             // 
             // lblSquareFees
             // 
@@ -466,7 +489,7 @@
             this.txtDonations.Location = new System.Drawing.Point(125, 101);
             this.txtDonations.Name = "txtDonations";
             this.txtDonations.Size = new System.Drawing.Size(75, 20);
-            this.txtDonations.TabIndex = 3;
+            this.txtDonations.TabIndex = 4;
             // 
             // lblDonations
             // 
@@ -482,7 +505,7 @@
             this.txtConcessionVouchers.Location = new System.Drawing.Point(125, 80);
             this.txtConcessionVouchers.Name = "txtConcessionVouchers";
             this.txtConcessionVouchers.Size = new System.Drawing.Size(75, 20);
-            this.txtConcessionVouchers.TabIndex = 2;
+            this.txtConcessionVouchers.TabIndex = 3;
             // 
             // lblConcessionVouchers
             // 
@@ -498,7 +521,7 @@
             this.txtStarVouchers.Location = new System.Drawing.Point(125, 59);
             this.txtStarVouchers.Name = "txtStarVouchers";
             this.txtStarVouchers.Size = new System.Drawing.Size(75, 20);
-            this.txtStarVouchers.TabIndex = 1;
+            this.txtStarVouchers.TabIndex = 2;
             // 
             // lblStarVouchers
             // 
@@ -514,7 +537,7 @@
             this.txtClassPasses.Location = new System.Drawing.Point(125, 38);
             this.txtClassPasses.Name = "txtClassPasses";
             this.txtClassPasses.Size = new System.Drawing.Size(75, 20);
-            this.txtClassPasses.TabIndex = 0;
+            this.txtClassPasses.TabIndex = 1;
             this.txtClassPasses.Tag = "Integer";
             // 
             // lblClassPasses
@@ -562,28 +585,47 @@
             this.lblTotalCollected.TabIndex = 15;
             this.lblTotalCollected.Text = "Amount Collected:";
             // 
-            // txtSeasonPasses
+            // txtDifference
             // 
-            this.txtSeasonPasses.Location = new System.Drawing.Point(125, 17);
-            this.txtSeasonPasses.Name = "txtSeasonPasses";
-            this.txtSeasonPasses.Size = new System.Drawing.Size(75, 20);
-            this.txtSeasonPasses.TabIndex = 19;
-            this.txtSeasonPasses.Tag = "Integer";
+            this.txtDifference.Location = new System.Drawing.Point(614, 37);
+            this.txtDifference.Name = "txtDifference";
+            this.txtDifference.ReadOnly = true;
+            this.txtDifference.Size = new System.Drawing.Size(100, 20);
+            this.txtDifference.TabIndex = 18;
+            this.txtDifference.TabStop = false;
             // 
-            // lblSeasonPasses
+            // lblDifference
             // 
-            this.lblSeasonPasses.AutoSize = true;
-            this.lblSeasonPasses.Location = new System.Drawing.Point(38, 20);
-            this.lblSeasonPasses.Name = "lblSeasonPasses";
-            this.lblSeasonPasses.Size = new System.Drawing.Size(83, 13);
-            this.lblSeasonPasses.TabIndex = 20;
-            this.lblSeasonPasses.Text = "Season Passes:";
+            this.lblDifference.AutoSize = true;
+            this.lblDifference.Location = new System.Drawing.Point(555, 40);
+            this.lblDifference.Name = "lblDifference";
+            this.lblDifference.Size = new System.Drawing.Size(59, 13);
+            this.lblDifference.TabIndex = 17;
+            this.lblDifference.Text = "Difference:";
+            // 
+            // txtMiscellaneous
+            // 
+            this.txtMiscellaneous.Location = new System.Drawing.Point(125, 143);
+            this.txtMiscellaneous.Name = "txtMiscellaneous";
+            this.txtMiscellaneous.Size = new System.Drawing.Size(75, 20);
+            this.txtMiscellaneous.TabIndex = 6;
+            // 
+            // lblMiscellaneous
+            // 
+            this.lblMiscellaneous.AutoSize = true;
+            this.lblMiscellaneous.Location = new System.Drawing.Point(44, 147);
+            this.lblMiscellaneous.Name = "lblMiscellaneous";
+            this.lblMiscellaneous.Size = new System.Drawing.Size(77, 13);
+            this.lblMiscellaneous.TabIndex = 22;
+            this.lblMiscellaneous.Text = "Miscellaneous:";
             // 
             // frmPerformanceDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 524);
+            this.Controls.Add(this.txtDifference);
+            this.Controls.Add(this.lblDifference);
             this.Controls.Add(this.txtTotalCollected);
             this.Controls.Add(this.lblTotalCollected);
             this.Controls.Add(this.txtTicketSales);
@@ -672,5 +714,9 @@
         private System.Windows.Forms.Label lblCashTotal;
         private System.Windows.Forms.TextBox txtSeasonPasses;
         private System.Windows.Forms.Label lblSeasonPasses;
+        private System.Windows.Forms.TextBox txtDifference;
+        private System.Windows.Forms.Label lblDifference;
+        private System.Windows.Forms.TextBox txtMiscellaneous;
+        private System.Windows.Forms.Label lblMiscellaneous;
     }
 }

@@ -103,9 +103,15 @@ namespace TicketTracker
             decimal totalCashCollected;
             decimal totalAmountCollected;
 
-            var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
-            ticketSales = _performanceRepo.GetTicketSalesForPerformance(performanceId);
-
+            if (_performanceInfo != null)
+            {
+                var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text);
+                ticketSales = _performanceRepo.GetSingle(p => p.PerformanceId == performanceId, p => p.Tickets).Tickets.Sum(t => t.Price.GetValueOrDefault() * t.AmountSold.GetValueOrDefault());
+            }
+            else
+            {
+                ticketSales = 0M;
+            }
 
             decimal.TryParse(txtSeedMoney.Text, out seedMoney);
             decimal.TryParse(txtChangeCollected.Text, out changeCollected);
@@ -126,6 +132,7 @@ namespace TicketTracker
             txtCashTotal.Text = totalCashCollected.ToString("0.00");
             txtTotalChecks.Text = checksCollected.ToString("0.00");
             txtGrandTotal.Text = totalAmountCollected.ToString("0.00");
+            txtDifference.Text = (totalAmountCollected - ticketSales).ToString("0.00");
         }
 
         private void ValidateDecimalAmount(object sender, CancelEventArgs e)
@@ -187,10 +194,36 @@ namespace TicketTracker
                 txtStarVouchers.Text = performance.StarVoucherAmount.GetValueOrDefault().ToString("0.00");
                 txtDonations.Text = performance.Donations.GetValueOrDefault().ToString("0.00");
                 txtSquareFees.Text = performance.CreditCardFees.GetValueOrDefault().ToString("0.00");
+                txtMiscellaneous.Text = performance.Miscellaneous.GetValueOrDefault().ToString("0.00");
 
                 LoadTicketInfo();
-                RecalculateAmounts();
-            }            
+            }
+            else
+            {
+                txtSeedMoney.Text = "0.00";
+                txtChangeCollected.Text = "0.00";
+                txtOnesCollected.Text = "0.00";
+                txtFivesCollected.Text = "0.00";
+                txtTensCollected.Text = "0.00";
+                txtTwentiesCollected.Text = "0.00";
+                txtFiftiesCollected.Text = "0.00";
+                txtHundredsCollected.Text = "0.00";
+                txtTotalChecks.Text = "0.00";
+                txtTotalCreditCards.Text = "0.00";
+                txtSeasonPasses.Text = "0";
+                txtClassPasses.Text = "0";
+                txtConcessionVouchers.Text = "0.00";
+                txtStarVouchers.Text = "0.00";
+                txtDonations.Text = "0.00";
+                txtSquareFees.Text = "0.00";
+                txtMiscellaneous.Text = "0.00";
+            }
+
+            RecalculateAmounts();
+
+            lstTicketPrices.Enabled = !_addingNewPerformance;
+            btnAddTicket.Enabled = !_addingNewPerformance;
+            btnDeleteTicket.Enabled = !_addingNewPerformance;
         }
 
         private void LoadTicketInfo()
@@ -244,6 +277,24 @@ namespace TicketTracker
             if (ValidateForm())
             {
                 var performanceDate = dtpPerformanceDate.Value;
+                var changeCollected = Convert.ToDecimal(txtChangeCollected.Text);
+                var onesCollected = Convert.ToDecimal(txtOnesCollected.Text);
+                var fivesCollected = Convert.ToDecimal(txtFivesCollected.Text);
+                var tensCollected = Convert.ToDecimal(txtTensCollected.Text);
+                var twentiesCollected = Convert.ToDecimal(txtTwentiesCollected.Text);
+                var fiftiesCollected = Convert.ToDecimal(txtFiftiesCollected.Text);
+                var hundredsCollected = Convert.ToDecimal(txtHundredsCollected.Text);
+                var checkAmount = Convert.ToDecimal(txtTotalChecks.Text);
+                var creditCardAmount = Convert.ToDecimal(txtTotalCreditCards.Text);
+                var startingCash = Convert.ToDecimal(txtSeedMoney.Text);
+                var seasonPasses = Convert.ToInt32(txtSeasonPasses.Text);
+                var classPasses = Convert.ToInt32(txtClassPasses.Text);
+                var starVoucherAmount = Convert.ToDecimal(txtStarVouchers.Text);
+                var concesstionVoucherAmount = Convert.ToDecimal(txtConcessionVouchers.Text);
+                var donations = Convert.ToDecimal(txtDonations.Text);
+                var miscellaneous = Convert.ToDecimal(txtMiscellaneous.Text);
+                var creditCardFees = Convert.ToDecimal(txtSquareFees.Text);
+
 
                 try
                 {
@@ -252,24 +303,23 @@ namespace TicketTracker
                         var performanceDto = new PerformanceDto();
                         performanceDto.ShowId = _showId;
                         performanceDto.Date = performanceDate;
-                        performanceDto.ChangeCollected = 0;
-                        performanceDto.OnesCollected = 0;
-                        performanceDto.FivesCollected = 0;
-                        performanceDto.TensCollected = 0;
-                        performanceDto.TwentiesCollected = 0;
-                        performanceDto.FiftiesCollected = 0;
-                        performanceDto.HundredsCollected = 0;
-                        performanceDto.CheckAmount = 0;
-                        performanceDto.CreditCardAmount = 0;
-                        performanceDto.StartingCash = 0;
-                        performanceDto.SeasonPasses = 0;
-                        performanceDto.ClassPasses = 0;
-                        performanceDto.StarVoucherAmount = 0;
-                        performanceDto.ConcessionVoucherAmount = 0;
-                        performanceDto.Donations = 0;
-                        performanceDto.Miscellaneous = 0;
-                        performanceDto.CreditCardFees = 0;
-                        performanceDto.SeasonPasses = 0;
+                        performanceDto.ChangeCollected = changeCollected;
+                        performanceDto.OnesCollected = onesCollected;
+                        performanceDto.FivesCollected = fivesCollected;
+                        performanceDto.TensCollected = tensCollected;
+                        performanceDto.TwentiesCollected = twentiesCollected;
+                        performanceDto.FiftiesCollected = fiftiesCollected;
+                        performanceDto.HundredsCollected = hundredsCollected;
+                        performanceDto.CheckAmount = checkAmount;
+                        performanceDto.CreditCardAmount = creditCardAmount;
+                        performanceDto.StartingCash = startingCash;
+                        performanceDto.SeasonPasses = seasonPasses;
+                        performanceDto.ClassPasses = classPasses;
+                        performanceDto.StarVoucherAmount = starVoucherAmount;
+                        performanceDto.ConcessionVoucherAmount = concesstionVoucherAmount;
+                        performanceDto.Donations = donations;
+                        performanceDto.Miscellaneous = miscellaneous;
+                        performanceDto.CreditCardFees = creditCardFees;
 
                         _performanceRepo.Add(performanceDto);
                     }
@@ -278,26 +328,24 @@ namespace TicketTracker
                         var performanceId = Convert.ToInt32(_performanceInfo.SubItems[4].Text.ToString());
 
                         var performanceDto = _performanceRepo.GetSingle(p => p.PerformanceId == performanceId);
-                        performanceDto.ShowId = _showId;
                         performanceDto.Date = performanceDate;
-                        performanceDto.ChangeCollected = 0;
-                        performanceDto.OnesCollected = 0;
-                        performanceDto.FivesCollected = 0;
-                        performanceDto.TensCollected = 0;
-                        performanceDto.TwentiesCollected = 0;
-                        performanceDto.FiftiesCollected = 0;
-                        performanceDto.HundredsCollected = 0;
-                        performanceDto.CheckAmount = 0;
-                        performanceDto.CreditCardAmount = 0;
-                        performanceDto.StartingCash = 0;
-                        performanceDto.SeasonPasses = 0;
-                        performanceDto.ClassPasses = 0;
-                        performanceDto.StarVoucherAmount = 0;
-                        performanceDto.ConcessionVoucherAmount = 0;
-                        performanceDto.Donations = 0;
-                        performanceDto.Miscellaneous = 0;
-                        performanceDto.CreditCardFees = 0;
-                        performanceDto.SeasonPasses = 0;
+                        performanceDto.ChangeCollected = changeCollected;
+                        performanceDto.OnesCollected = onesCollected;
+                        performanceDto.FivesCollected = fivesCollected;
+                        performanceDto.TensCollected = tensCollected;
+                        performanceDto.TwentiesCollected = twentiesCollected;
+                        performanceDto.FiftiesCollected = fiftiesCollected;
+                        performanceDto.HundredsCollected = hundredsCollected;
+                        performanceDto.CheckAmount = checkAmount;
+                        performanceDto.CreditCardAmount = creditCardAmount;
+                        performanceDto.StartingCash = startingCash;
+                        performanceDto.SeasonPasses = seasonPasses;
+                        performanceDto.ClassPasses = classPasses;
+                        performanceDto.StarVoucherAmount = starVoucherAmount;
+                        performanceDto.ConcessionVoucherAmount = concesstionVoucherAmount;
+                        performanceDto.Donations = donations;
+                        performanceDto.Miscellaneous = miscellaneous;
+                        performanceDto.CreditCardFees = creditCardFees;
 
                         _performanceRepo.Update(performanceDto);
                     }

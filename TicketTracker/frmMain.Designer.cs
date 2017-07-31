@@ -44,10 +44,11 @@
             this.colShowType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colShowId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSeason = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnAddNew = new System.Windows.Forms.Button();
-            this.btnDeleteShow = new System.Windows.Forms.Button();
             this.colTicketsSold = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmountCollected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnAddNew = new System.Windows.Forms.Button();
+            this.btnDeleteShow = new System.Windows.Forms.Button();
+            this.btnCreatePDF = new System.Windows.Forms.Button();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +92,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -100,7 +101,7 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customizeToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // customizeToolStripMenuItem
@@ -122,12 +123,12 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(113, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // lstShows
@@ -169,6 +170,16 @@
             this.colSeason.Text = "Season";
             this.colSeason.Width = 0;
             // 
+            // colTicketsSold
+            // 
+            this.colTicketsSold.Text = "Tickets Sold";
+            this.colTicketsSold.Width = 100;
+            // 
+            // colAmountCollected
+            // 
+            this.colAmountCollected.Text = "Amount Collected";
+            this.colAmountCollected.Width = 100;
+            // 
             // btnAddNew
             // 
             this.btnAddNew.Location = new System.Drawing.Point(5, 248);
@@ -189,21 +200,22 @@
             this.btnDeleteShow.UseVisualStyleBackColor = true;
             this.btnDeleteShow.Click += new System.EventHandler(this.btnDeleteShow_Click);
             // 
-            // colTicketsSold
+            // btnCreatePDF
             // 
-            this.colTicketsSold.Text = "Tickets Sold";
-            this.colTicketsSold.Width = 100;
-            // 
-            // colAmountCollected
-            // 
-            this.colAmountCollected.Text = "Amount Collected";
-            this.colAmountCollected.Width = 100;
+            this.btnCreatePDF.Location = new System.Drawing.Point(509, 248);
+            this.btnCreatePDF.Name = "btnCreatePDF";
+            this.btnCreatePDF.Size = new System.Drawing.Size(75, 23);
+            this.btnCreatePDF.TabIndex = 8;
+            this.btnCreatePDF.Text = "Create PDF";
+            this.btnCreatePDF.UseVisualStyleBackColor = true;
+            this.btnCreatePDF.Click += new System.EventHandler(this.btnCreatePDF_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 283);
+            this.Controls.Add(this.btnCreatePDF);
             this.Controls.Add(this.btnDeleteShow);
             this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.lstShows);
@@ -244,6 +256,7 @@
         private System.Windows.Forms.Button btnDeleteShow;
         private System.Windows.Forms.ColumnHeader colTicketsSold;
         private System.Windows.Forms.ColumnHeader colAmountCollected;
+        private System.Windows.Forms.Button btnCreatePDF;
     }
 }
 
