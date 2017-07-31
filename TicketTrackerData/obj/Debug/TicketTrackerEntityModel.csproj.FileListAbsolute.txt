@@ -1,0 +1,10 @@
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\TicketTrackerEntityModel.dll.config
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\TicketTrackerEntityModel.dll
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\TicketTrackerEntityModel.pdb
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\EntityFramework.dll
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\EntityFramework.xml
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\obj\Debug\TicketTrackerEntityModel.csprojResolveAssemblyReference.cache
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\obj\Debug\TicketTrackerEntityModel.dll
+C:\Users\brian\Documents\GitHubVisualStudio\TicketTracker\TicketTrackerData\obj\Debug\TicketTrackerEntityModel.pdb

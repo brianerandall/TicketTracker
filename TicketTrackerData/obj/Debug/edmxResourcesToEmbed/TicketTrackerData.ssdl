@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicketTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Performance">
+    <Key>
+      <PropertyRef Name="PerformanceId" />
+    </Key>
+    <Property Name="PerformanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShowId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="ChangeCollected" Type="money" />
+    <Property Name="OnesCollected" Type="money" />
+    <Property Name="FivesCollected" Type="money" />
+    <Property Name="TensCollected" Type="money" />
+    <Property Name="TwentiesCollected" Type="money" />
+    <Property Name="FiftiesCollected" Type="money" />
+    <Property Name="HundredsCollected" Type="money" />
+    <Property Name="CheckAmount" Type="money" />
+    <Property Name="CreditCardAmount" Type="money" />
+    <Property Name="StartingCash" Type="money" />
+    <Property Name="ClassPasses" Type="int" />
+    <Property Name="StarVoucherAmount" Type="money" />
+    <Property Name="ConcessionVoucherAmount" Type="money" />
+    <Property Name="Donations" Type="money" />
+    <Property Name="Miscellaneous" Type="money" />
+    <Property Name="CreditCardFees" Type="money" />
+    <Property Name="SeasonPasses" Type="int" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="PriceId" />
+    </Key>
+    <Property Name="PriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="SeasonId" />
+    </Key>
+    <Property Name="SeasonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Show">
+    <Key>
+      <PropertyRef Name="ShowId" />
+    </Key>
+    <Property Name="ShowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="ShowTypeId" Type="int" Nullable="false" />
+    <Property Name="SeasonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShowPrice">
+    <Key>
+      <PropertyRef Name="ShowPriceId" />
+    </Key>
+    <Property Name="ShowPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShowId" Type="int" Nullable="false" />
+    <Property Name="PriceId" Type="int" Nullable="false" />
+    <Property Name="AmountSold" Type="int" />
+  </EntityType>
+  <EntityType Name="ShowType">
+    <Key>
+      <PropertyRef Name="ShowTypeId" />
+    </Key>
+    <Property Name="ShowTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Performance_Show">
+    <End Role="Show" Type="Self.Show" Multiplicity="1" />
+    <End Role="Performance" Type="Self.Performance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="ShowId" />
+      </Principal>
+      <Dependent Role="Performance">
+        <PropertyRef Name="ShowId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Show_Season">
+    <End Role="Season" Type="Self.Season" Multiplicity="1" />
+    <End Role="Show" Type="Self.Show" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Season">
+        <PropertyRef Name="SeasonId" />
+      </Principal>
+      <Dependent Role="Show">
+        <PropertyRef Name="SeasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Show_ShowType">
+    <End Role="ShowType" Type="Self.ShowType" Multiplicity="1" />
+    <End Role="Show" Type="Self.Show" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShowType">
+        <PropertyRef Name="ShowTypeId" />
+      </Principal>
+      <Dependent Role="Show">
+        <PropertyRef Name="ShowTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShowPrice_Price">
+    <End Role="Price" Type="Self.Price" Multiplicity="1" />
+    <End Role="ShowPrice" Type="Self.ShowPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Price">
+        <PropertyRef Name="PriceId" />
+      </Principal>
+      <Dependent Role="ShowPrice">
+        <PropertyRef Name="PriceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShowPrice_Show">
+    <End Role="Show" Type="Self.Show" Multiplicity="1" />
+    <End Role="ShowPrice" Type="Self.ShowPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="ShowId" />
+      </Principal>
+      <Dependent Role="ShowPrice">
+        <PropertyRef Name="ShowId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TicketTrackerModelStoreContainer">
+    <EntitySet Name="Performance" EntityType="Self.Performance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Season" EntityType="Self.Season" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Show" EntityType="Self.Show" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShowPrice" EntityType="Self.ShowPrice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShowType" EntityType="Self.ShowType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Performance_Show" Association="Self.FK_Performance_Show">
+      <End Role="Show" EntitySet="Show" />
+      <End Role="Performance" EntitySet="Performance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Show_Season" Association="Self.FK_Show_Season">
+      <End Role="Season" EntitySet="Season" />
+      <End Role="Show" EntitySet="Show" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Show_ShowType" Association="Self.FK_Show_ShowType">
+      <End Role="ShowType" EntitySet="ShowType" />
+      <End Role="Show" EntitySet="Show" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShowPrice_Price" Association="Self.FK_ShowPrice_Price">
+      <End Role="Price" EntitySet="Price" />
+      <End Role="ShowPrice" EntitySet="ShowPrice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShowPrice_Show" Association="Self.FK_ShowPrice_Show">
+      <End Role="Show" EntitySet="Show" />
+      <End Role="ShowPrice" EntitySet="ShowPrice" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

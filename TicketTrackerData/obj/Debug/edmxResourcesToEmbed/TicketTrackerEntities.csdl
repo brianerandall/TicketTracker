@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicketTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Performance">
+    <Key>
+      <PropertyRef Name="PerformanceId" />
+    </Key>
+    <Property Name="PerformanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShowId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="ChangeCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="OnesCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="FivesCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="TensCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="TwentiesCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="FiftiesCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="HundredsCollected" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="CheckAmount" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="CreditCardAmount" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="StartingCash" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="ClassPasses" Type="Int32" />
+    <Property Name="StarVoucherAmount" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="ConcessionVoucherAmount" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="Donations" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="Miscellaneous" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="CreditCardFees" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="SeasonPasses" Type="Int32" />
+    <NavigationProperty Name="Show" Relationship="Self.FK_Performance_Show" FromRole="Performance" ToRole="Show" />
+    <NavigationProperty Name="Tickets" Relationship="TicketTrackerModel.FK_Ticket_Performance" FromRole="Performance" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="SeasonId" />
+    </Key>
+    <Property Name="SeasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Shows" Relationship="Self.FK_Show_Season" FromRole="Season" ToRole="Show" />
+  </EntityType>
+  <EntityType Name="Show">
+    <Key>
+      <PropertyRef Name="ShowId" />
+    </Key>
+    <Property Name="ShowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ShowTypeId" Type="Int32" Nullable="false" />
+    <Property Name="SeasonId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Performances" Relationship="Self.FK_Performance_Show" FromRole="Show" ToRole="Performance" />
+    <NavigationProperty Name="Season" Relationship="Self.FK_Show_Season" FromRole="Show" ToRole="Season" />
+    <NavigationProperty Name="ShowType" Relationship="Self.FK_Show_ShowType" FromRole="Show" ToRole="ShowType" />
+  </EntityType>
+  <EntityType Name="ShowType">
+    <Key>
+      <PropertyRef Name="ShowTypeId" />
+    </Key>
+    <Property Name="ShowTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Shows" Relationship="Self.FK_Show_ShowType" FromRole="ShowType" ToRole="Show" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Performance_Show">
+    <End Role="Show" Type="Self.Show" Multiplicity="1" />
+    <End Role="Performance" Type="Self.Performance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="ShowId" />
+      </Principal>
+      <Dependent Role="Performance">
+        <PropertyRef Name="ShowId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Show_Season">
+    <End Role="Season" Type="Self.Season" Multiplicity="1" />
+    <End Role="Show" Type="Self.Show" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Season">
+        <PropertyRef Name="SeasonId" />
+      </Principal>
+      <Dependent Role="Show">
+        <PropertyRef Name="SeasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Show_ShowType">
+    <End Role="ShowType" Type="Self.ShowType" Multiplicity="1" />
+    <End Role="Show" Type="Self.Show" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShowType">
+        <PropertyRef Name="ShowTypeId" />
+      </Principal>
+      <Dependent Role="Show">
+        <PropertyRef Name="ShowTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TicketTrackerEntities" annotation:LazyLoadingEnabled="false">
+    <EntitySet Name="Performances" EntityType="Self.Performance" />
+    <EntitySet Name="Seasons" EntityType="Self.Season" />
+    <EntitySet Name="Shows" EntityType="Self.Show" />
+    <EntitySet Name="ShowTypes" EntityType="Self.ShowType" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Performance_Show" Association="Self.FK_Performance_Show">
+      <End Role="Show" EntitySet="Shows" />
+      <End Role="Performance" EntitySet="Performances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Show_Season" Association="Self.FK_Show_Season">
+      <End Role="Season" EntitySet="Seasons" />
+      <End Role="Show" EntitySet="Shows" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Show_ShowType" Association="Self.FK_Show_ShowType">
+      <End Role="ShowType" EntitySet="ShowTypes" />
+      <End Role="Show" EntitySet="Shows" />
+    </AssociationSet>
+    <EntitySet Name="Tickets" EntityType="TicketTrackerModel.Ticket" />
+    <AssociationSet Name="FK_Ticket_Performance" Association="TicketTrackerModel.FK_Ticket_Performance">
+      <End Role="Performance" EntitySet="Performances" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="TicketId" />
+    </Key>
+    <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PerformanceId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AmountSold" Type="Int32" />
+    <NavigationProperty Name="Performance" Relationship="TicketTrackerModel.FK_Ticket_Performance" FromRole="Ticket" ToRole="Performance" />
+    <Property Name="Price" Type="Decimal" Precision="17" Scale="2" />
+  </EntityType>
+  <Association Name="FK_Ticket_Performance">
+    <End Type="TicketTrackerModel.Performance" Role="Performance" Multiplicity="1" />
+    <End Type="TicketTrackerModel.Ticket" Role="Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Performance">
+        <PropertyRef Name="PerformanceId" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="PerformanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

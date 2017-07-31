@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TicketTrackerModelStoreContainer" CdmEntityContainer="TicketTrackerEntities">
+    <EntitySetMapping Name="Performances">
+      <EntityTypeMapping TypeName="TicketTrackerModel.Performance">
+        <MappingFragment StoreEntitySet="Performance">
+          <ScalarProperty Name="PerformanceId" ColumnName="PerformanceId" />
+          <ScalarProperty Name="ShowId" ColumnName="ShowId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ChangeCollected" ColumnName="ChangeCollected" />
+          <ScalarProperty Name="OnesCollected" ColumnName="OnesCollected" />
+          <ScalarProperty Name="FivesCollected" ColumnName="FivesCollected" />
+          <ScalarProperty Name="TensCollected" ColumnName="TensCollected" />
+          <ScalarProperty Name="TwentiesCollected" ColumnName="TwentiesCollected" />
+          <ScalarProperty Name="FiftiesCollected" ColumnName="FiftiesCollected" />
+          <ScalarProperty Name="HundredsCollected" ColumnName="HundredsCollected" />
+          <ScalarProperty Name="CheckAmount" ColumnName="CheckAmount" />
+          <ScalarProperty Name="CreditCardAmount" ColumnName="CreditCardAmount" />
+          <ScalarProperty Name="StartingCash" ColumnName="StartingCash" />
+          <ScalarProperty Name="ClassPasses" ColumnName="ClassPasses" />
+          <ScalarProperty Name="StarVoucherAmount" ColumnName="StarVoucherAmount" />
+          <ScalarProperty Name="ConcessionVoucherAmount" ColumnName="ConcessionVoucherAmount" />
+          <ScalarProperty Name="Donations" ColumnName="Donations" />
+          <ScalarProperty Name="Miscellaneous" ColumnName="Miscellaneous" />
+          <ScalarProperty Name="CreditCardFees" ColumnName="CreditCardFees" />
+          <ScalarProperty Name="SeasonPasses" ColumnName="SeasonPasses" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="TicketTrackerModel.Price">
+        <MappingFragment StoreEntitySet="Price">
+          <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seasons">
+      <EntityTypeMapping TypeName="TicketTrackerModel.Season">
+        <MappingFragment StoreEntitySet="Season">
+          <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shows">
+      <EntityTypeMapping TypeName="TicketTrackerModel.Show">
+        <MappingFragment StoreEntitySet="Show">
+          <ScalarProperty Name="ShowId" ColumnName="ShowId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShowTypeId" ColumnName="ShowTypeId" />
+          <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShowPrices">
+      <EntityTypeMapping TypeName="TicketTrackerModel.ShowPrice">
+        <MappingFragment StoreEntitySet="ShowPrice">
+          <ScalarProperty Name="ShowPriceId" ColumnName="ShowPriceId" />
+          <ScalarProperty Name="ShowId" ColumnName="ShowId" />
+          <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+          <ScalarProperty Name="AmountSold" ColumnName="AmountSold" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShowTypes">
+      <EntityTypeMapping TypeName="TicketTrackerModel.ShowType">
+        <MappingFragment StoreEntitySet="ShowType">
+          <ScalarProperty Name="ShowTypeId" ColumnName="ShowTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
