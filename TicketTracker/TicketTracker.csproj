@@ -201,11 +201,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TicketTrackerData\TicketTrackerEntityModel.csproj">
+    <ProjectReference Include="..\..\TicketTrackerData\TicketTrackerData\TicketTrackerEntityModel.csproj">
       <Project>{28020c26-c3a8-4485-b640-6c9e3d609bf1}</Project>
       <Name>TicketTrackerEntityModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TicketTrackerRepo\TicketTrackerRepo.csproj">
+    <ProjectReference Include="..\..\TicketTrackerRepo\TicketTrackerRepo\TicketTrackerRepo.csproj">
       <Project>{25e1531a-4a2f-409d-a381-262233bca691}</Project>
       <Name>TicketTrackerRepo</Name>
     </ProjectReference>
